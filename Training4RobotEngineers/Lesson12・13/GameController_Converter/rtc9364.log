@@ -1,0 +1,27 @@
+2019-09-18 13:12:15,211 manager INFO 1.1.0
+2019-09-18 13:12:15,211 manager INFO Copyright (C) 2003-2010
+2019-09-18 13:12:15,211 manager INFO   Noriaki Ando
+2019-09-18 13:12:15,211 manager INFO   Intelligent Systems Research Institute, AIST
+2019-09-18 13:12:15,211 manager INFO Manager starting.
+2019-09-18 13:12:15,211 manager INFO Starting local logging.
+2019-09-18 13:12:15,227 manager.namingmanager INFO NameServer connection succeeded: corba/localhost
+2019-09-18 13:12:17,365 ManagerServant INFO Master manager not found
+2019-09-18 13:12:17,365 manager WARNING Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\OpenRTM_aist\Manager.py", line 1900, in initManagerServant
+    reffile = file(self._config.getProperty("manager.refstring_path"),'w')
+IOError: [Errno 2] No such file or directory: '/var/log/rtcmanager.ref'
+
+2019-09-18 13:12:17,365 LocalServiceAdmin INFO All the local services are enabled.
+2019-09-18 13:12:17,380 manager INFO Component type conf file: GameController_Converter.conf loaded.
+2019-09-18 13:12:17,380 ec_base INFO setRate(1000000.000000) done
+2019-09-18 13:12:17,380 ec_base INFO setRate(1000.000000) done
+2019-09-18 13:12:17,380 rtobject INFO 1 execution context was created.
+2019-09-18 13:12:17,380 rtobject INFO Initial active configuration set is default-set.
+2019-09-18 13:12:28,882 SdoServiceAdmin WARNING No available SDO service in the factory: 
+2019-09-18 13:12:28,882 SdoServiceAdmin ERROR type  already exists.
+2019-09-18 13:12:29,013 SdoServiceAdmin WARNING No available SDO service in the factory: IDL:OpenRTM/ComponentObserver:1.0
+2019-09-18 13:12:29,013 SdoServiceAdmin ERROR type 164043b7-e5ed-44d7-b28b-1da611fbd2db already exists.
+2019-09-18 13:13:30,658 ec_base INFO setRate(10.000000) done
+2019-09-18 14:02:21,357 ec_worker ERROR State of the RTC is not ACTIVE_STATE.
+2019-09-18 14:02:21,506 ec_worker WARNING ExecutionContext is already stopped.
+2019-09-18 14:02:21,506 ec_base ERROR Invoking on_shutdown() for each RTC failed.

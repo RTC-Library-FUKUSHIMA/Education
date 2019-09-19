@@ -1,0 +1,54 @@
+# RobotCar CMake config file
+#
+# This file sets the following variables:
+# RobotCar_FOUND - Always TRUE.
+# RobotCar_INCLUDE_DIRS - Directories containing the RobotCar include files.
+# RobotCar_IDL_DIRS - Directories containing the RobotCar IDL files.
+# RobotCar_LIBRARIES - Libraries needed to use RobotCar.
+# RobotCar_DEFINITIONS - Compiler flags for RobotCar.
+# RobotCar_VERSION - The version of RobotCar found.
+# RobotCar_VERSION_MAJOR - The major version of RobotCar found.
+# RobotCar_VERSION_MINOR - The minor version of RobotCar found.
+# RobotCar_VERSION_REVISION - The revision version of RobotCar found.
+# RobotCar_VERSION_CANDIDATE - The candidate version of RobotCar found.
+
+message(STATUS "Found RobotCar-@PROJECT_VERSION@")
+set(RobotCar_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(RobotCar_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(RobotCar_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(RobotCar_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(RobotCar_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(RobotCar_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(RobotCar_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(RobotCar_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(RobotCar_VERSION @PROJECT_VERSION@)
+set(RobotCar_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(RobotCar_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(RobotCar_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(RobotCar_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

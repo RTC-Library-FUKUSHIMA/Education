@@ -1,0 +1,54 @@
+# GameController_Converter CMake config file
+#
+# This file sets the following variables:
+# GameController_Converter_FOUND - Always TRUE.
+# GameController_Converter_INCLUDE_DIRS - Directories containing the GameController_Converter include files.
+# GameController_Converter_IDL_DIRS - Directories containing the GameController_Converter IDL files.
+# GameController_Converter_LIBRARIES - Libraries needed to use GameController_Converter.
+# GameController_Converter_DEFINITIONS - Compiler flags for GameController_Converter.
+# GameController_Converter_VERSION - The version of GameController_Converter found.
+# GameController_Converter_VERSION_MAJOR - The major version of GameController_Converter found.
+# GameController_Converter_VERSION_MINOR - The minor version of GameController_Converter found.
+# GameController_Converter_VERSION_REVISION - The revision version of GameController_Converter found.
+# GameController_Converter_VERSION_CANDIDATE - The candidate version of GameController_Converter found.
+
+message(STATUS "Found GameController_Converter-@PROJECT_VERSION@")
+set(GameController_Converter_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(GameController_Converter_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(GameController_Converter_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(GameController_Converter_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(GameController_Converter_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(GameController_Converter_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(GameController_Converter_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(GameController_Converter_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(GameController_Converter_VERSION @PROJECT_VERSION@)
+set(GameController_Converter_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(GameController_Converter_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(GameController_Converter_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(GameController_Converter_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

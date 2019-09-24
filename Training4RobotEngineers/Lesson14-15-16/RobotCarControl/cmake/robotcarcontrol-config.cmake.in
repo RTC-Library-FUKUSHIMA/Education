@@ -1,0 +1,54 @@
+# RobotCarControl CMake config file
+#
+# This file sets the following variables:
+# RobotCarControl_FOUND - Always TRUE.
+# RobotCarControl_INCLUDE_DIRS - Directories containing the RobotCarControl include files.
+# RobotCarControl_IDL_DIRS - Directories containing the RobotCarControl IDL files.
+# RobotCarControl_LIBRARIES - Libraries needed to use RobotCarControl.
+# RobotCarControl_DEFINITIONS - Compiler flags for RobotCarControl.
+# RobotCarControl_VERSION - The version of RobotCarControl found.
+# RobotCarControl_VERSION_MAJOR - The major version of RobotCarControl found.
+# RobotCarControl_VERSION_MINOR - The minor version of RobotCarControl found.
+# RobotCarControl_VERSION_REVISION - The revision version of RobotCarControl found.
+# RobotCarControl_VERSION_CANDIDATE - The candidate version of RobotCarControl found.
+
+message(STATUS "Found RobotCarControl-@PROJECT_VERSION@")
+set(RobotCarControl_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(RobotCarControl_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(RobotCarControl_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(RobotCarControl_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(RobotCarControl_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(RobotCarControl_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(RobotCarControl_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(RobotCarControl_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(RobotCarControl_VERSION @PROJECT_VERSION@)
+set(RobotCarControl_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(RobotCarControl_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(RobotCarControl_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(RobotCarControl_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

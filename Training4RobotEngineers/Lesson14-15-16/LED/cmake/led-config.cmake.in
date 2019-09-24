@@ -1,0 +1,54 @@
+# LED CMake config file
+#
+# This file sets the following variables:
+# LED_FOUND - Always TRUE.
+# LED_INCLUDE_DIRS - Directories containing the LED include files.
+# LED_IDL_DIRS - Directories containing the LED IDL files.
+# LED_LIBRARIES - Libraries needed to use LED.
+# LED_DEFINITIONS - Compiler flags for LED.
+# LED_VERSION - The version of LED found.
+# LED_VERSION_MAJOR - The major version of LED found.
+# LED_VERSION_MINOR - The minor version of LED found.
+# LED_VERSION_REVISION - The revision version of LED found.
+# LED_VERSION_CANDIDATE - The candidate version of LED found.
+
+message(STATUS "Found LED-@PROJECT_VERSION@")
+set(LED_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(LED_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(LED_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(LED_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(LED_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(LED_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(LED_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(LED_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(LED_VERSION @PROJECT_VERSION@)
+set(LED_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(LED_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(LED_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(LED_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

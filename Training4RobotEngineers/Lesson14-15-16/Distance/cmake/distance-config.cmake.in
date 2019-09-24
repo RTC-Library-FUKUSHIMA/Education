@@ -1,0 +1,54 @@
+# Distance CMake config file
+#
+# This file sets the following variables:
+# Distance_FOUND - Always TRUE.
+# Distance_INCLUDE_DIRS - Directories containing the Distance include files.
+# Distance_IDL_DIRS - Directories containing the Distance IDL files.
+# Distance_LIBRARIES - Libraries needed to use Distance.
+# Distance_DEFINITIONS - Compiler flags for Distance.
+# Distance_VERSION - The version of Distance found.
+# Distance_VERSION_MAJOR - The major version of Distance found.
+# Distance_VERSION_MINOR - The minor version of Distance found.
+# Distance_VERSION_REVISION - The revision version of Distance found.
+# Distance_VERSION_CANDIDATE - The candidate version of Distance found.
+
+message(STATUS "Found Distance-@PROJECT_VERSION@")
+set(Distance_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(Distance_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(Distance_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(Distance_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(Distance_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(Distance_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(Distance_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(Distance_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(Distance_VERSION @PROJECT_VERSION@)
+set(Distance_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(Distance_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(Distance_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(Distance_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

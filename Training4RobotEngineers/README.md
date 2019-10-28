@@ -7,7 +7,7 @@ https://github.com/takeshimc15/Education/blob/master/Training4RobotEngineers/RTM
 
 # 動画
 紹介動画は以下になります。  
-※作成中
+https://github.com/takeshimc15/Education/blob/master/Training4RobotEngineers/RTMcontest.mp4  
 
 
 # マニュアル

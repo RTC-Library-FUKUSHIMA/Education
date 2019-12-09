@@ -76,7 +76,7 @@ https://github.com/RTC-Library-FUKUSHIMA/Education/blob/master/Training4RobotEng
 https://github.com/RTC-Library-FUKUSHIMA/Education/blob/master/Training4RobotEngineers/Lesson-20Slide.pdf  
 
 # 仕様・機材
-言語： Python2.7  
+言語： Python2.7  ※Python3への対応は取組中です。
 OS: Windows/Raspbian (stretch)  
 RTミドルウェア： OpenRTM-aist-1.1.2/ROS kinetic  
 2輪ロボット( Escargot:https://www.fabo.store/collections/robot/products/escargot )  

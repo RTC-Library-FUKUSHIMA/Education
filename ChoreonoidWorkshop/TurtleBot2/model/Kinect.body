@@ -1,0 +1,42 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: Kinect
+
+KINECT_PRIMITIVES: &KINECT_PRIMITIVES
+  type: Resource
+  uri: "KinectPrimitives.yaml"
+  
+links:
+  -
+    name: kinect
+    rotation: [ 0, 0, 1, 90 ]
+    mass: 0.564
+    inertia: [ 4.052E-04,     0.003,     0.003,
+                   0.003,     0.003, 4.052E-04,
+                   0.003, 4.052E-04,     0.003 ]
+    elements:
+      -
+        type: Visual
+        elements:
+          Resource:
+            uri: "resource/sensors/kinect.wrl"
+      -
+        type: Collision
+        elements:
+          - { <<: *KINECT_PRIMITIVES, node: KINECT }
+      -
+        type: Camera
+        name: Kinect
+        translation: [ -0.014, -0.031, 0.016 ]
+        rotation: [ [ 0, 0, 1, 180 ], [ 1, 0, 0, 90 ] ]
+        id: 4
+        format: COLOR_DEPTH
+        lensType: Normal
+        on: true
+        width: 320
+        height: 240
+        fieldOfView: 57
+        nearClipDistance: 0.4
+        farClipDistance: 4.5
+        frameRate: 30

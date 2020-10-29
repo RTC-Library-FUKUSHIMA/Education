@@ -1,0 +1,39 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: TurtleBot2
+
+links:
+  -
+    name: TurtleBot
+    type: SubBody
+    uri: "Kobuki.body"
+    jointType: free
+  -
+    name: hexagons_plate
+    type: SubBody
+    parent: kobuki
+    translation: [ -0.002, 0.002, -0.052 ]
+    uri: "HexagonsPlate.body"
+    jointType: fixed
+  -
+    name: Camera
+    parent: kobuki
+    translation: [ 0.17, 0.0, 0.2 ]
+    rotation: [ [ 0, 0, 1, 90 ], [ 1, 0, 0, 50 ] ]
+    jointType: fixed
+    elements:
+      -
+        type: Camera
+        name: LineTrace
+        rotation: [ [ 0, 0, 1, 180 ], [ 1, 0, 0, 90 ] ]
+        format: COLOR_DEPTH
+        lensType: Normal
+        on: true
+        width: 320
+        height: 240
+        fieldOfView: 80
+        nearClipDistance: 0.02
+        farClipDistance: 1.5
+        frameRate: 30
+        id: 5

@@ -1,0 +1,172 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: Kobuki
+
+links:
+  -
+    name: kobuki
+    translation: [ 0.001, 0.0, 0.05199 ]
+    jointType: free
+    centerOfMass: [ 0, 0, 0 ]
+    mass: 2.4
+    inertia: [ 0.019995,      0.0,     0.0,
+                    0.0, 0.019995,     0.0,
+                    0.0,      0.0, 0.03675 ]
+    elements:
+      -
+        type: Visual
+        rotation: [ 1, 0, 0, -90 ]
+        elements:
+          Resource:
+            uri: "resource/kobuki/main_body.wrl"
+      -
+        type: Collision
+        elements:
+          -
+            type: Shape
+            translation: [ 0.0, 0.0, -0.0053 ]
+            rotation: [ 1, 0, 0, 90 ]
+            geometry: { type: Cylinder, radius: 0.175, height: 0.084 }
+          -
+            type: Shape
+            translation: [ -0.095, 0.0, 0.023 ]
+            rotation: [ 0, 1, 0, 60 ]
+            geometry: { type: Box, size: [ 0.06, 0.23, 0.05 ] }
+  -
+    name: wheel_left
+    material: Tire
+    parent: kobuki
+    translation: [ 0.0, 0.115, -0.02695 ]
+    jointType: revolute
+    jointAxis: Y
+    elements: &WHEEL
+      -
+        type: RigidBody
+        centerOfMass: [ 0, 0, 0 ]
+        mass: 0.076
+        inertia: [ 0.001,   0.0,   0.0,
+                     0.0, 0.001,   0.0,
+                     0.0,   0.0, 0.001 ]
+      -
+        type: Visual
+        rotation: [ 1, 0, 0, 90 ]
+        elements:
+          Resource:
+            uri: "resource/kobuki/wheel.wrl"
+      -
+        type: Collision
+        elements:
+          Shape:
+            geometry: { type: Cylinder, radius: 0.0352, height: 0.0206 }
+  -
+    name: wheel_right
+    material: Tire
+    parent: kobuki
+    translation: [ 0.0, -0.115, -0.027 ]
+    jointType: revolute
+    jointAxis: Y
+    centerOfMass: [ 0, 0, 0 ]
+    elements: *WHEEL
+  -
+    name: caster_front
+    parent: kobuki
+    translation: [ 0.114, 0.0, -0.04511 ]
+    jointType: revolute
+    jointAxis: Y
+    elements: &CASTER
+      -
+        type: RigidBody
+        centerOfMass: [ 0, 0, 0 ]
+        mass: 0.03
+        inertia: [ 0.001,   0.0,   0.0,
+                     0.0, 0.001,   0.0,
+                     0.0,   0.0, 0.001 ]
+      -
+        type: Visual
+        rotation: [ 1, 0, 0, 90 ]
+        elements:
+          Resource:
+            uri: "resource/kobuki/caster.wrl"
+      -
+        type: Collision
+        elements:
+          Shape:
+            geometry: { type: Cylinder, radius: 0.017, height: 0.0176 }
+  -
+    name: caster_back
+    parent: kobuki
+    translation: [ -0.136, 0.0, -0.0448 ]
+    jointType: revolute
+    jointAxis: Y
+    elements: *CASTER
+  -
+    name: sensors
+    parent: kobuki
+    jointType: fixed
+    elements:
+      -
+        type: Transform
+        translation: [ 0.056, 0.062, 0.0202 ]
+        mass: 0.001
+        inertia: [ 0.0001,      0.0,    0.0,
+                      0.0, 0.000001,    0.0,
+                      0.0,      0.0, 0.0001 ]
+        elements:
+          -
+            type: RateGyroSensor
+            name: Gyro_sensor
+            id: 0
+      -
+        type: Transform
+        translation: [ 0.10234, 0.14501, 0.0024 ]
+        rotation: [ 0, 1, 0, 90 ]
+        elements:
+          - &CLIFF_SENSOR
+            type: RigidBody
+            mass: 0.0001
+            inertia: [ 0.0001,    0.0,    0.0,
+                          0.0, 0.0001,    0.0,
+                          0.0,    0.0, 0.0001 ]
+          -
+            type: RangeSensor
+            name: Cliff_sensor_left
+            on: false
+            yawRange: [ -2.5, 2.5 ]
+            yawStep: 1.0
+            scanRate: 50
+            minDistance: 0.01
+            maxDistance: 0.15
+            id: 1
+      -
+        type: Transform
+        translation: [ 0.103, -0.14501, 0.0024 ]
+        rotation: [ 0, 1, 0, 90 ]
+        elements:
+          - *CLIFF_SENSOR
+          -
+            type: RangeSensor
+            name: Cliff_sensor_right
+            on: false
+            yawRange: [ -2.5, 2.5 ]
+            yawStep: 1.0
+            scanRate: 50
+            minDistance: 0.01
+            maxDistance: 0.15
+            id: 2
+      -
+        type: Transform
+        translation: [ 0.179, 0.0, 0.0 ]
+        rotation: [ 0, 1, 0, 90 ]
+        elements:
+          - *CLIFF_SENSOR
+          -
+            type: RangeSensor
+            name: Cliff_sensor_front
+            on: false
+            yawRange: [ -2.5, 2.5 ]
+            yawStep: 1.0
+            scanRate: 50
+            minDistance: 0.01
+            maxDistance: 0.15
+            id: 3

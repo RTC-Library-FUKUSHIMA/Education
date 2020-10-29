@@ -1,0 +1,28 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: LineCourse
+
+links:
+  -
+    name: base
+    jointType: fixed
+    translation: [ 0.0, 0.0, -0.075 ]
+    centerOfMass: [ 0, 0, 0 ]
+    mass: 100.0
+    inertia: [ 0.5, 0.0, 0.0,
+               0.0, 0.5, 0.0,
+               0.0, 0.0, 0.5 ]
+    elements:
+      -
+        type: Visual
+        elements:
+          Resource:
+            uri: "resource/LineCourse.dae"
+      -
+        type: Collision
+        translation: [ 0.0, 0.0, 0.025 ]
+        elements:
+          -
+            type: Shape
+            geometry: { type: Box, size: [ 10.0, 10.0, 0.1 ] }

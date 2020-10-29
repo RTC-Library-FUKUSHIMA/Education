@@ -1,0 +1,454 @@
+format: ChoreonoidBody
+formatVersion: 1.0
+angleUnit: degree
+name: AutoRaceCourse
+
+links:
+  -
+    name: base
+    translation: [ 0.001, 0.0, 1.57 ]
+    jointType: fixed
+    centerOfMass: [ 0, 0, 0 ]
+    mass: 100.0
+    inertia: [ 0.5, 0.0, 0.0,
+               0.0, 0.5, 0.0,
+               0.0, 0.0, 0.5 ]
+    elements:
+      -
+        type: Visual
+        scale: [ 0.002, 0.002, 0.002 ]
+        elements:
+          Resource:
+            uri: "resource/AutoRaceCourse.wrl"
+      -
+        type: Collision
+        translation: [ -2.862, -1.9422, -1.55822 ]
+        elements:
+          -
+            type: Shape
+            geometry: { type: Box, size: [ 8.0, 8.0, 0.02 ] }
+      -
+        type: SpotLight
+        name: BlueLight
+        translation: [ 0.968, 1.018, -1.4182 ]
+        color: [ 0.0, 1.0, 1.0 ]
+        direction: [ 0, 1, 0 ]
+        beamWidth: 25
+        cutOffAngle: 30
+        cutOffExponent: 1
+        attenuation: [ 0, 1, 300 ]
+        on: false
+        elements:
+          Shape:
+            translation: [ 0.0, 0.05, 0.0 ]
+            geometry: { type: Cylinder, height: 0.001, radius: 0.025 }
+            appearance:
+              material:
+                diffuseColor: [ 0.0, 0.5, 0.0 ]
+                ambientIntensity: 0.3
+                emissiveColor: [ 0.1, 0.2, 0.1 ]
+      -
+        type: SpotLight
+        name: YellowLight
+        translation: [ 0.968, 1.018, -1.3382 ]
+        color: [ 1.0, 1.0, 0.0 ]
+        direction: [ 0, 1, 0 ]
+        beamWidth: 25
+        cutOffAngle: 30
+        cutOffExponent: 1
+        attenuation: [ 0, 1, 300 ]
+        on: false
+        elements:
+          Shape:
+            translation: [ 0.0, 0.05, 0.0 ]
+            geometry: { type: Cylinder, height: 0.001, radius: 0.025 }
+            appearance:
+              material:
+                diffuseColor: [ 0.5, 0.5, 0.0 ]
+                ambientIntensity: 0.3
+                emissiveColor: [ 0.3, 0.3, 0.1 ]
+      -
+        type: SpotLight
+        name: RedLight
+        translation: [ 0.968, 1.018, -1.2582 ]
+        color: [ 1.0, 0.0, 0.0 ]
+        direction: [ 0, 1, 0 ]
+        beamWidth: 25
+        cutOffAngle: 30
+        cutOffExponent: 1
+        attenuation: [ 0, 1, 300 ]
+        on: true
+        elements:
+          Shape:
+            translation: [ 0.0, 0.05, 0.0 ]
+            geometry: { type: Cylinder, height: 0.001, radius: 0.025 }
+            appearance:
+              material:
+                diffuseColor: [ 0.5, 0.0, 0.0 ]
+                ambientIntensity: 0.3
+                emissiveColor: [ 0.3, 0.1, 0.1 ]
+        
+  -
+    name: Straight0
+    translation: [ 0.638, -0.44, -1.5277 ]
+    parent: base
+    jointType: fixed
+    elements: &Straight0
+      Collision:
+        elements:
+          Shape:
+            geometry: { type: Box, size: [ 0.6, 3.0, 0.039 ] }
+  -
+    name: Curve0
+    translation: [ 0.0, 1.496, 0.0 ]
+    parent: Straight0
+    jointType: fixed
+    elements: &Curve0
+      Collision:
+        elements:
+          -
+            type: Transform
+            name: Curve0_Box0
+            translation: [ -0.002, 0.03, 0.0 ]
+            rotation: [ 0, 0, 1, 3 ]
+            elements: &Curve0_Box
+              Shape:
+                geometry: { type: Box, size: [ 0.6, 0.09, 0.039 ] }
+          -
+            type: Transform
+            name: Curve0_Box1
+            translation: [ -0.008, 0.0855, 0.0 ]
+            rotation: [ 0, 0, 1, 9 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box2
+            translation: [ -0.019, 0.1355, 0.0 ]
+            rotation: [ 0, 0, 1, 16 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box3
+            translation: [ -0.036, 0.1855, 0.0 ]
+            rotation: [ 0, 0, 1, 23 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box4
+            translation: [ -0.058, 0.231, 0.0 ]
+            rotation: [ 0, 0, 1, 30 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box5
+            translation: [ -0.088, 0.283, 0.0 ]
+            rotation: [ 0, 0, 1, 35 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box6
+            translation: [ -0.127, 0.333, 0.0 ]
+            rotation: [ 0, 0, 1, 40 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box7
+            translation: [ -0.163, 0.37, 0.0 ]
+            rotation: [ 0, 0, 1, 47 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box8
+            translation: [ -0.202, 0.402, 0.0 ]
+            rotation: [ 0, 0, 1, 54 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box9
+            translation: [ -0.245, 0.43, 0.0 ]
+            rotation: [ 0, 0, 1, 61 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box10
+            translation: [ -0.295, 0.456, 0.0 ]
+            rotation: [ 0, 0, 1, 67 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box11
+            translation: [ -0.349, 0.477, 0.0 ]
+            rotation: [ 0, 0, 1, 73 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box12
+            translation: [ -0.404, 0.491, 0.0 ]
+            rotation: [ 0, 0, 1, 79 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box13
+            translation: [ -0.456, 0.498, 0.0 ]
+            rotation: [ 0, 0, 1, 86 ]
+            elements: *Curve0_Box
+          -
+            type: Transform
+            name: Curve0_Box14
+            translation: [ -0.52, 0.501, 0.0 ]
+            rotation: [ 0, 0, 1, 90 ]
+            elements: *Curve0_Box
+  -
+    name: Straight1
+    translation: [ -0.999, 0.502, 0.0 ]
+    parent: Curve0
+    jointType: fixed
+    elements: &Straight1
+      Collision:
+        elements:
+          Shape:
+            geometry: { type: Box, size: [ 1.0, 0.6, 0.039 ] }
+  -
+    name: Curve1
+    translation: [ -0.5, 0.0, 0.0 ]
+    rotation: [ 0, 0, 1, 90 ]
+    parent: Straight1
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Straight2
+    translation: [ -0.999, 0.502, 0.0 ]
+    parent: Curve1
+    jointType: fixed
+    elements: *Straight1
+  -
+    name: Curve2
+    translation: [ -0.5, 0.0, 0.0 ]
+    rotation: [ 0, 0, 1, 90 ]
+    parent: Straight2
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Curve3
+    translation: [ -0.998, 1.0, 0.0 ]
+    rotation: [ 0, 0, 1, 180 ]
+    parent: Curve2
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Curve4
+    translation: [ -0.5, -0.498, 0.0 ]
+    rotation: [ 0, 0, 1, -90 ]
+    parent: Curve3
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Straight3
+    translation: [ 0.0, -0.498, 0.0 ]
+    rotation: [ 0, 0, 1, 90 ]
+    parent: Curve4
+    jointType: fixed
+    elements: *Straight1
+  -
+    name: Curve5
+    translation: [ -0.999, 0.5, 0.0 ]
+    rotation: [ 0, 0, 1, 180 ]
+    parent: Straight3
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Straight4
+    translation: [ 0.0, -0.998, 0.0 ]
+    parent: Curve5
+    jointType: fixed
+    elements: &Straight4
+      Collision:
+        elements:
+          Shape:
+            geometry: { type: Box, size: [ 0.6, 2.0, 0.039 ] }
+  -
+    name: Curve6
+    translation: [ 0.0, -0.999, 0.0 ]
+    rotation: [ 0, 0, 1, 180 ]
+    parent: Straight4
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Straight5
+    translation: [ -1.499, 0.5, 0.0 ]
+    rotation: [ 0, 0, 1, 90 ]
+    parent: Curve6
+    jointType: fixed
+    elements: *Straight4
+  -
+    name: Curve7
+    translation: [ 0.0, 0.998, 0.0 ]
+    parent: Straight5
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Straight6
+    translation: [ -1.499, 0.5, 0.0 ]
+    rotation: [ 0, 0, 1, -90 ]
+    parent: Curve7
+    jointType: fixed
+    elements: *Straight4
+  -
+    name: Straight7
+    translation: [ -0.6, 0.0, 0.0 ]
+    parent: Straight6
+    jointType: fixed
+    elements: *Straight4
+  -
+    name: Curve8
+    translation: [ -0.5, -1.499, 0.0 ]
+    rotation: [ 0, 0, 1, -90 ]
+    parent: Straight6
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Curve9
+    rotation: [ 0, 0, 1, 180 ]
+    parent: Curve8
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Straight8
+    translation: [ -1.99, 0.5, 0.0 ]
+    rotation: [ 0, 0, 1, 90 ]
+    parent: Curve9
+    jointType: fixed
+    elements: *Straight0
+  -
+    name: Curve10
+    translation: [ 0.0, 1.498, 0.0 ]
+    parent: Straight8
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Curve11
+    translation: [ -0.499, 0.5, 0.0 ]
+    rotation: [ 0, 0, 1, 90 ]
+    parent: Curve10
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Curve12
+    translation: [ -0.5, 0.5, 0.0 ]
+    rotation: [ 0, 0, 1, -90 ]
+    parent: Curve11
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Straight9
+    translation: [ 0.001, 1.5, 0.0 ]
+    parent: Curve11
+    jointType: fixed
+    elements: *Straight0
+  -
+    name: Straight10
+    translation: [ -1.5, -1.0, 0.0 ]
+    rotation: [ 0, 0, 1, -90 ]
+    parent: Straight9
+    jointType: fixed
+    elements: *Straight4
+  -
+    name: Curve13
+    translation: [ -0.5, -1.499, 0.0 ]
+    rotation: [ 0, 0, 1, -90 ]
+    parent: Straight10
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Straight11
+    translation: [ 0.0, -0.5, 0.0 ]
+    rotation: [ 0, 0, 1, 90 ]
+    parent: Curve13
+    jointType: fixed
+    elements: *Straight1
+  -
+    name: Curve14
+    translation: [ -0.99, 0.5, 0.0 ]
+    rotation: [ 0, 0, 1, -180 ]
+    parent: Straight11
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Straight12
+    translation: [ 0.0, -1.0, 0.0 ]
+    parent: Curve14
+    jointType: fixed
+    elements: *Straight4
+  -
+    name: Curve15
+    translation: [ -0.5, -1.499, 0.0 ]
+    rotation: [ 0, 0, 1, -90 ]
+    parent: Straight12
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Curve16
+    translation: [ -0.5, 0.5, 0.0 ]
+    rotation: [ 0, 0, 1, -90 ]
+    parent: Curve15
+    jointType: fixed
+    elements: *Curve0
+  -
+    name: Tunnel0
+    translation: [ -0.8618, -3.94, -1.52771 ]
+    parent: base
+    jointType: fixed
+    elements: &Tunnel0
+      Collision:
+        elements:
+          Shape:
+            geometry: { type: Box, size: [ 4.0, 4.0, 0.039 ] }
+  -
+    name: Tunnel1
+    translation: [ -0.3, 1.80785, 0.27 ]
+    parent: Tunnel0
+    jointType: fixed
+    elements: &Tunnel1
+      Collision:
+        elements:
+          Shape:
+            geometry: { type: Box, size: [ 3.0, 0.02, 0.502 ] }
+  -
+    name: Tunnel2
+    translation: [ -1.51, -1.5, 0.0 ]
+    rotation: [ 0, 0, 1, 90 ]
+    parent: Tunnel1
+    jointType: fixed
+    elements: &Tunnel2
+      Collision:
+        elements:
+          Shape:
+            geometry: { type: Box, size: [ 3.02, 0.02, 0.502 ] }
+  -
+    name: Tunnel3
+    translation: [ -2.12, -1.81, 0.0 ]
+    rotation: [ 0, 0, 1, 90 ]
+    parent: Tunnel2
+    jointType: fixed
+    elements: &Tunnel3
+      Collision:
+        elements:
+          Shape:
+            geometry: { type: Box, size: [ 3.64, 0.02, 0.502 ] }
+  -
+    name: Tunnel4
+    translation: [ -1.81, -1.81, 0.0 ]
+    rotation: [ 0, 0, 1, 90 ]
+    parent: Tunnel3
+    jointType: fixed
+    elements: *Tunnel3
+  -
+    name: Tunnel5
+    translation: [ -0.862, -3.942, -0.998 ]
+    parent: base
+    jointType: fixed
+    elements: &Tunnel5
+      Collision:
+        elements:
+          Shape:
+            geometry: { type: Box, size: [ 3.8, 3.8, 0.019 ] }

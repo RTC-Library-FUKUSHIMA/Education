@@ -1,0 +1,250 @@
+KINECT: &KINECT
+  type: Group
+  elements:
+    -
+      type: Transform
+      name: KINECT_CYLINDER_0
+      translation: [ -0.0225, -0.015, -0.029 ]
+      rotation: [ 1, 0, 0, 90 ]
+      elements: &KINECT_CYLINDER_0
+        Shape:
+          geometry: { type: Cylinder, radius: 0.015, height: 0.012 }
+    -
+      type: Transform
+      name: KINECT_CYLINDER_1
+      translation: [ -0.0225, 0.015, -0.029 ]
+      rotation: [ 1, 0, 0, 90 ]
+      elements: *KINECT_CYLINDER_0
+    -
+      type: Transform
+      name: KINECT_CYLINDER_2
+      translation: [ 0.0225, -0.015, -0.029 ]
+      rotation: [ 1, 0, 0, 90 ]
+      elements: *KINECT_CYLINDER_0
+    -
+      type: Transform
+      name: KINECT_CYLINDER_3
+      translation: [ 0.0225, 0.015, -0.029 ]
+      rotation: [ 1, 0, 0, 90 ]
+      elements: *KINECT_CYLINDER_0
+    -
+      type: Shape
+      name: KINECT_BOX_0
+      translation: [ 0.0, 0.0, -0.029 ]
+      geometry: { type: Box, size: [ 0.045, 0.06, 0.012 ] }
+    -
+      type: Shape
+      name: KINECT_BOX_1
+      translation: [ 0.0, 0.0, -0.029 ]
+      geometry: { type: Box, size: [ 0.075, 0.03, 0.012 ] }
+    -
+      type: Transform
+      name: KINECT_CYLINDER_4
+      translation: [ -0.0239, -0.0162, -0.025 ]
+      rotation: [ [ 1, 0, 0, 100 ], [ 0, 0, 1, 10 ] ]
+      elements: &KINECT_CYLINDER_4
+        Shape:
+          geometry: { type: Cylinder, radius: 0.015, height: 0.013 }
+    -
+      type: Transform
+      name: KINECT_CYLINDER_5
+      translation: [ -0.0239, 0.0162, -0.025 ]
+      rotation: [ [ 1, 0, 0, -100 ], [ 0, 0, 1, -10 ] ]
+      elements: *KINECT_CYLINDER_4
+    -
+      type: Transform
+      name: KINECT_CYLINDER_6
+      translation: [ 0.0239, -0.0162, -0.025 ]
+      rotation: [ [ 1, 0, 0, 100 ], [ 0, 0, 1, -10 ] ]
+      elements: *KINECT_CYLINDER_4
+    -
+      type: Transform
+      name: KINECT_CYLINDER_4
+      translation: [ 0.0239, 0.0162, -0.025 ]
+      rotation: [ [ 1, 0, 0, -100 ], [ 0, 0, 1, 10 ] ]
+      elements: *KINECT_CYLINDER_4
+    -
+      type: Transform
+      name: KINECT_BOX_2
+      translation: [ 0.0, -0.022, -0.0238 ]
+      rotation: [ 1, 0, 0, 16 ]
+      elements: &KINECT_BOX_2
+        Shape:
+          geometry: { type: Box, size: [ 0.04, 0.015, 0.012 ] }
+    -
+      type: Transform
+      name: KINECT_BOX_3
+      translation: [ -0.008, -0.01, -0.02 ]
+      rotation: [ [ 1, 0, 0, 18 ], [ 0, 0, 1, 45 ] ]
+      elements: &KINECT_BOX_3
+        Shape:
+          geometry: { type: Box, size: [ 0.03, 0.01, 0.012 ] }
+    -
+      type: Transform
+      name: KINECT_BOX_4
+      translation: [ 0.008, -0.01, -0.02 ]
+      rotation: [ [ 1, 0, 0, 18 ], [ 0, 0, 1, -45 ] ]
+      elements: *KINECT_BOX_3
+    -
+      type: Transform
+      name: KINECT_BOX_5
+      translation: [ 0.0, -0.01, -0.0202 ]
+      rotation: [ 1, 0, 0, 18 ]
+      elements: &KINECT_BOX_5
+        Shape:
+          geometry: { type: Box, size: [ 0.02, 0.01, 0.012 ] }
+    -
+      type: Transform
+      name: KINECT_BOX_6
+      translation: [ 0.0, 0.022, -0.0238 ]
+      rotation: [ 1, 0, 0, -16 ]
+      elements: *KINECT_BOX_2
+    -
+      type: Transform
+      name: KINECT_BOX_7
+      translation: [ -0.008, 0.01, -0.02 ]
+      rotation: [ [ 1, 0, 0, -18 ], [ 0, 0, 1, -45 ] ]
+      elements: *KINECT_BOX_3
+    -
+      type: Transform
+      name: KINECT_BOX_8
+      translation: [ 0.008, 0.01, -0.02 ]
+      rotation: [ [ 1, 0, 0, -18 ], [ 0, 0, 1, 45 ] ]
+      elements: *KINECT_BOX_3
+    -
+      type: Transform
+      name: KINECT_BOX_7
+      translation: [ 0.0, 0.01, -0.0202 ]
+      rotation: [ 1, 0, 0, -18 ]
+      elements: *KINECT_BOX_5
+    -
+      type: Transform
+      name: KINECT_BOX_8
+      translation: [ 0.0258, 0.0, -0.023 ]
+      rotation: [ 0, 1, 0, 16 ]
+      elements: &KINECT_BOX_8
+        Shape:
+          geometry: { type: Box, size: [ 0.025, 0.02, 0.012 ] }
+    -
+      type: Transform
+      name: KINECT_BOX_9
+      translation: [ 0.01, -0.004, -0.019 ]
+      rotation: [ [ 0, 1, 0, 18 ], [ 0, 0, 1, -45 ], [ 0, 0, 1, 3 ] ]
+      elements: &KINECT_BOX_9
+        Shape:
+          geometry: { type: Box, size: [ 0.02, 0.008, 0.012 ] }
+    -
+      type: Transform
+      name: KINECT_BOX_10
+      translation: [ 0.01, 0.004, -0.019 ]
+      rotation: [ [ 0, 1, 0, 18 ], [ 0, 0, 1, 45 ], [ 0, 0, 1, -3 ] ]
+      elements: *KINECT_BOX_9
+    -
+      type: Transform
+      name: KINECT_BOX_11
+      translation: [ 0.012, 0.0, -0.0197 ]
+      rotation: [ 0, 1, 0, 18 ]
+      elements: &KINECT_BOX_11
+        Shape:
+          geometry: { type: Box, size: [ 0.004, 0.004, 0.012 ] }
+    -
+      type: Transform
+      name: KINECT_BOX_12
+      translation: [ -0.0258, 0.0, -0.023 ]
+      rotation: [ 0, 1, 0, -16 ]
+      elements: *KINECT_BOX_8
+    -
+      type: Transform
+      name: KINECT_BOX_13
+      translation: [ -0.01, -0.004, -0.019 ]
+      rotation: [ [ 0, 1, 0, -18 ], [ 0, 0, 1, 45 ], [ 0, 0, 1, -3 ] ]
+      elements: *KINECT_BOX_9
+    -
+      type: Transform
+      name: KINECT_BOX_14
+      translation: [ -0.01, 0.004, -0.019 ]
+      rotation: [ [ 0, 1, 0, -18 ], [ 0, 0, 1, -45 ], [ 0, 0, 1, 3 ] ]
+      elements: *KINECT_BOX_9
+    -
+      type: Transform
+      name: KINECT_BOX_15
+      translation: [ -0.012, 0.0, -0.0197 ]
+      rotation: [ 0, 1, 0, -18 ]
+      elements: *KINECT_BOX_11
+    -
+      type: Transform
+      name: KINECT_BOX_16
+      translation: [ 0.0, 0.029, -0.0275 ]
+      rotation: [ 1, 0, 0, -12 ]
+      elements: &KINECT_BOX_16
+        Shape:
+          geometry: { type: Box, size: [ 0.048, 0.004, 0.014 ] }
+    -
+      type: Transform
+      name: KINECT_BOX_17
+      translation: [ 0.0, -0.029, -0.0275 ]
+      rotation: [ 1, 0, 0, 12 ]
+      elements: *KINECT_BOX_16
+    -
+      type: Transform
+      name: KINECT_BOX_18
+      translation: [ -0.0365, 0.0, -0.0275 ]
+      rotation: [ 0, 1, 0, -10 ]
+      elements: &KINECT_BOX_18
+        Shape:
+          geometry: { type: Box, size: [ 0.004, 0.031, 0.014 ] }
+    -
+      type: Transform
+      name: KINECT_BOX_19
+      translation: [ 0.0365, 0.0, -0.0275 ]
+      rotation: [ 0, 1, 0, 10 ]
+      elements: *KINECT_BOX_18
+    -
+      type: Shape
+      name: KINECT_BOX_20
+      translation: [ 0.0, 0.00035, -0.008 ]
+      rotation: [ 1, 0, 0, 90 ]
+      geometry: { type: Cylinder, radius: 0.0085, height: 0.01 }
+    -
+      type: Shape
+      name: KINECT_BOX_21
+      translation: [ 0.0, 0.00035, 0.016 ]
+      geometry: { type: Box, size: [ 0.215, 0.062, 0.038 ] }
+    -
+      type: Transform
+      name: KINECT_BOX_22
+      translation: [ -0.1225, -0.02565, 0.016 ]
+      elements: &KINECT_BOX_22
+        Shape:
+          geometry: { type: Box, size: [ 0.03, 0.01, 0.038 ] }
+    -
+      type: Transform
+      name: KINECT_BOX_23
+      translation: [ -0.1145, 0.0001, 0.016 ]
+      rotation: [ 0, 0, 1, 60 ]
+      elements: &KINECT_BOX_23
+        Shape:
+          geometry: { type: Box, size: [ 0.06, 0.019, 0.038 ] }
+    -
+      type: Transform
+      name: KINECT_BOX_24
+      translation: [ -0.1115, -0.014, 0.016 ]
+      elements: &KINECT_BOX_24
+        Shape:
+          geometry: { type: Box, size: [ 0.008, 0.014, 0.038 ] }
+    -
+      type: Transform
+      name: KINECT_BOX_25
+      translation: [ 0.1225, -0.02565, 0.016 ]
+      elements: *KINECT_BOX_22
+    -
+      type: Transform
+      name: KINECT_BOX_26
+      translation: [ 0.1145, 0.0001, 0.016 ]
+      rotation: [ 0, 0, 1, -60 ]
+      elements: *KINECT_BOX_23
+    -
+      type: Transform
+      name: KINECT_BOX_27
+      translation: [ 0.1115, -0.014, 0.016 ]
+      elements: *KINECT_BOX_24

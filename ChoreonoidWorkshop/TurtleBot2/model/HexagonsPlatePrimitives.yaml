@@ -1,0 +1,927 @@
+POLE_BOTTOM_PRIMITIVE: &POLE_BOTTOM_PRIMITIVE
+  type: Group
+  elements:
+    -
+      type: Shape
+      translation: [ 0.0, 0.0, 0.005 ]
+      rotation: [ 1, 0, 0, 90 ]
+      geometry: { type: Cylinder, radius: 0.00605, height: 0.0392 }
+    -
+      type: Shape
+      translation: [ 0.0, 0.0, -0.0196 ]
+      rotation: [ 1, 0, 0, 90 ]
+      geometry: { type: Cylinder, radius: 0.00171, height: 0.01 }
+
+PLATE_BOTTOM_PRIMITIVE: &PLATE_BOTTOM_PRIMITIVE
+  type: Group
+  elements:
+    - # Left side
+      type: Shape
+      name: PLATE_BOTTOM_BOX_0
+      translation: [ 0.0152, 0.0, 0.0 ]
+      geometry: { type: Box, size: [ 0.2364, 0.11, 0.006 ] }
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_1
+      translation: [ 0.09328, 0.0524, 0.0 ]
+      rotation: [ 0, 0, 1, 8.3   ]
+      elements: &PLATE_BOTTOM_BOX_1
+        Shape:
+          geometry: { type: Box, size: [ 0.08, 0.0075, 0.006 ] }
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_2
+      translation: [ 0.09263, 0.05575, 0.0 ]
+      rotation: [ 0, 0, 1, 13.7 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_3
+      translation: [ 0.09175, 0.05879, 0.0 ]
+      rotation: [ 0, 0, 1, 18.9 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_4
+      translation: [ 0.09052, 0.0619, 0.0 ]
+      rotation: [ 0, 0, 1, 24.6 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_5
+      translation: [ 0.08892, 0.065, 0.0 ]
+      rotation: [ 0, 0, 1, 30.1 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_6
+      translation: [ 0.08719, 0.0677, 0.0 ]
+      rotation: [ 0, 0, 1, 35.6 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_7
+      translation: [ 0.0853, 0.0701, 0.0 ]
+      rotation: [ 0, 0, 1, 41.3 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_8
+      translation: [ 0.0828 , 0.0727, 0.0 ]
+      rotation: [ 0, 0, 1, 46.3 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_9
+      translation: [ 0.08035, 0.0748, 0.0 ]
+      rotation: [ 0, 0, 1, 51.7 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_10
+      translation: [ 0.0775, 0.07693, 0.0 ]
+      rotation: [ 0, 0, 1, 57.3 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_11
+      translation: [ 0.0264, 0.0948, 0.0 ]
+      rotation: [ 0, 0, 1, -29.8 ]
+      elements: &PLATE_BOTTOM_BOX_11
+        Shape:
+          geometry: { type: Box, size: [ 0.103, 0.1, 0.006 ] }
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_12
+      translation: [ -0.0106, 0.12741, 0.0 ]
+      rotation: [ 0, 0, 1, 68.0 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_13
+      translation: [ -0.01405, 0.12855, 0.0 ]
+      rotation: [ 0, 0, 1, 73.4 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_14
+      translation: [ -0.0175  , 0.12932, 0.0 ]
+      rotation: [ 0, 0, 1, 79.1 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_15
+      translation: [ -0.0205, 0.12974, 0.0 ]
+      rotation: [ 0, 0, 1, 84.5 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_16
+      translation: [ -0.02345, 0.12991, 0.0 ]
+      rotation: [ 0, 0, 1, 90.0 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_17
+      translation: [ -0.02673, 0.12976, 0.0 ]
+      rotation: [ 0, 0, 1, 95.4 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_18
+      translation: [ -0.02984, 0.12933, 0.0 ]
+      rotation: [ 0, 0, 1, 100.9 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_19
+      translation: [ -0.03333, 0.12851, 0.0 ]
+      rotation: [ 0, 0, 1, 106.3 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_20
+      translation: [ -0.03635, 0.12748, 0.0 ]
+      rotation: [ 0, 0, 1, 111.8 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_21
+      translation: [ -0.0603, 0.0908, 0.0 ]
+      rotation: [ 0, 0, 1, 30.1 ]
+      elements: &PLATE_BOTTOM_BOX_21
+        Shape:
+          geometry: { type: Box, size: [ 0.083, 0.12, 0.006 ] }
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_22
+      translation: [ -0.1205, 0.11362, 0.0 ]
+      rotation: [ 0, 0, 1, 43.3 ]
+      elements: &PLATE_BOTTOM_BOX_22
+        Shape:
+          geometry: { type: Box, size: [ 0.003, 0.02, 0.006 ] }
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_23
+      translation: [ -0.1215, 0.1125, 0.0 ]
+      rotation: [ 0, 0, 1, 51.4  ]
+      elements: *PLATE_BOTTOM_BOX_22
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_24
+      translation: [ -0.1223, 0.11123, 0.0 ]
+      rotation: [ 0, 0, 1, 60.0  ]
+      elements: *PLATE_BOTTOM_BOX_22
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_25
+      translation: [ -0.1229, 0.10985, 0.0 ]
+      rotation: [ 0, 0, 1, 68.4  ]
+      elements: *PLATE_BOTTOM_BOX_22
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_26
+      translation: [ -0.1233, 0.10837, 0.0 ]
+      rotation: [ 0, 0, 1, 76.8  ]
+      elements: *PLATE_BOTTOM_BOX_22
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_27
+      translation: [ -0.12347, 0.107, 0.0 ]
+      rotation: [ 0, 0, 1, 85.7 ]
+      elements: *PLATE_BOTTOM_BOX_22
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_28
+      translation: [ -0.125, 0.0555, 0.0 ]
+      elements: &PLATE_BOTTOM_BOX_28
+        Shape:
+          geometry: { type: Box, size: [ 0.017, 0.103, 0.006 ] }
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_29
+      translation: [ -0.102, 0.069, 0.0 ]
+      elements: &PLATE_BOTTOM_BOX_29
+        Shape:
+          geometry: { type: Box, size: [ 0.035, 0.078, 0.006 ] }
+    - # Right side
+      type: Transform
+      name: PLATE_BOTTOM_BOX_30
+      translation: [ 0.09328, -0.0524, 0.0 ]
+      rotation: [ 0, 0, 1, -8.3   ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_31
+      translation: [ 0.09263, -0.05575, 0.0 ]
+      rotation: [ 0, 0, 1, -13.7 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_32
+      translation: [ 0.09175, -0.05879, 0.0 ]
+      rotation: [ 0, 0, 1, -18.9 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_33
+      translation: [ 0.09052, -0.0619, 0.0 ]
+      rotation: [ 0, 0, 1, -24.6 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_34
+      translation: [ 0.08892, -0.065, 0.0 ]
+      rotation: [ 0, 0, 1, -30.1 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_35
+      translation: [ 0.08719, -0.0677, 0.0 ]
+      rotation: [ 0, 0, 1, -35.6 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_36
+      translation: [ 0.0853, -0.0701, 0.0 ]
+      rotation: [ 0, 0, 1, -41.3 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_37
+      translation: [ 0.0828 , -0.0727, 0.0 ]
+      rotation: [ 0, 0, 1, -46.3 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_38
+      translation: [ 0.08035, -0.0748, 0.0 ]
+      rotation: [ 0, 0, 1, -51.7 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_39
+      translation: [ 0.0775, -0.07693, 0.0 ]
+      rotation: [ 0, 0, 1, -57.3 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_40
+      translation: [ 0.0264, -0.0948, 0.0 ]
+      rotation: [ 0, 0, 1, 29.8 ]
+      elements: *PLATE_BOTTOM_BOX_11
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_41
+      translation: [ -0.0106, -0.12741, 0.0 ]
+      rotation: [ 0, 0, 1, -68.0 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_42
+      translation: [ -0.01405, -0.12855, 0.0 ]
+      rotation: [ 0, 0, 1, -73.4 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_43
+      translation: [ -0.0175, -0.12932, 0.0 ]
+      rotation: [ 0, 0, 1, -79.1 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_44
+      translation: [ -0.0205, -0.12974, 0.0 ]
+      rotation: [ 0, 0, 1, -84.5 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_45
+      translation: [ -0.02345, -0.12991, 0.0 ]
+      rotation: [ 0, 0, 1, -90.0 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_46
+      translation: [ -0.02673, -0.12976, 0.0 ]
+      rotation: [ 0, 0, 1, -95.4 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_47
+      translation: [ -0.02984, -0.12933, 0.0 ]
+      rotation: [ 0, 0, 1, -100.9 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_48
+      translation: [ -0.03333, -0.12851, 0.0 ]
+      rotation: [ 0, 0, 1, -106.3 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_49
+      translation: [ -0.03635, -0.12748, 0.0 ]
+      rotation: [ 0, 0, 1, -111.8 ]
+      elements: *PLATE_BOTTOM_BOX_1
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_50
+      translation: [ -0.0603, -0.0908, 0.0 ]
+      rotation: [ 0, 0, 1, -30.1 ]
+      elements: *PLATE_BOTTOM_BOX_21
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_51
+      translation: [ -0.1205, -0.11362, 0.0 ]
+      rotation: [ 0, 0, 1, -43.3 ]
+      elements: *PLATE_BOTTOM_BOX_22
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_52
+      translation: [ -0.1215, -0.1125, 0.0 ]
+      rotation: [ 0, 0, 1, -51.4  ]
+      elements: *PLATE_BOTTOM_BOX_22
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_53
+      translation: [ -0.1223, -0.11123, 0.0 ]
+      rotation: [ 0, 0, 1, -60.0 ]
+      elements: *PLATE_BOTTOM_BOX_22
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_54
+      translation: [ -0.1229, -0.10985, 0.0 ]
+      rotation: [ 0, 0, 1, -68.4 ]
+      elements: *PLATE_BOTTOM_BOX_22
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_55
+      translation: [ -0.1233, -0.10837, 0.0 ]
+      rotation: [ 0, 0, 1, -76.8 ]
+      elements: *PLATE_BOTTOM_BOX_22
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_56
+      translation: [ -0.12347, -0.107, 0.0 ]
+      rotation: [ 0, 0, 1, -85.7 ]
+      elements: *PLATE_BOTTOM_BOX_22
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_57
+      translation: [ -0.125, -0.0555, 0.0 ]
+      elements: *PLATE_BOTTOM_BOX_28
+    -
+      type: Transform
+      name: PLATE_BOTTOM_BOX_58
+      translation: [ -0.102, -0.069, 0.0 ]
+      elements: *PLATE_BOTTOM_BOX_29
+
+POLE_MIDDLE_PRIMITIVE: &POLE_MIDDLE_PRIMITIVE
+  type: Group
+  elements:
+    -
+      type: Shape
+      name: POLE_MIDDLE_CYLINDER_0
+      translation: [ 0.0, 0.0, 0.005 ]
+      rotation: [ 1, 0, 0, 90 ]
+      geometry: { type: Cylinder, radius: 0.00605, height: 0.0508 }
+    -
+      type: Shape
+      name: POLE_MIDDLE_CYLINDER_1
+      translation: [ 0.0, 0.0, -0.0254 ]
+      rotation: [ 1, 0, 0, 90 ] 
+      geometry: { type: Cylinder, radius: 0.0017, height: 0.01 }
+
+PLATE_MIDDLE_PRIMITIVE: &PLATE_MIDDLE_PRIMITIVE
+  type: Group
+  elements:
+    - # Left side
+      type: Shape
+      name: PLATE_MIDDLE_BOX_0
+      translation: [ 0.0155, 0.0, 0.0 ]
+      geometry: { type: Box, size: [ 0.2562, 0.19 , 0.006 ] }
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_1
+      translation: [ 0.103636, 0.09385, 0.0 ]
+      rotation: [ 0, 0, 1, 3.1 ]
+      elements: &PLATE_MIDDLE_BOX_1
+        Shape:
+          geometry: { type: Box, size: [ 0.08, 0.002, 0.006 ] }
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_2
+      translation: [ 0.10375, 0.0924, 0.0 ]
+      rotation: [ 0, 0, 1, 8.1 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_3
+      translation: [ 0.10433, 0.08959, 0.0 ]
+      rotation: [ 0, 0, 1, 15.1 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_4
+      translation: [ 0.10487, 0.08792, 0.0 ]
+      rotation: [ 0, 0, 1, 20.5 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_5
+      translation: [ 0.10606, 0.0853, 0.0 ]
+      rotation: [ 0, 0, 1, 27.5 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_6
+      translation: [ 0.10715, 0.0835, 0.0 ]
+      rotation: [ 0, 0, 1, 33.4 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_7
+      translation: [ 0.10795, 0.08245, 0.0 ]
+      rotation: [ 0, 0, 1, 38.2 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_8
+      translation: [ 0.10986, 0.08035, 0.0 ]
+      rotation: [ 0, 0, 1, 45.2 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_9
+      translation: [ 0.11132, 0.0791, 0.0 ]
+      rotation: [ 0, 0, 1, 50.7 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_10
+      translation: [ 0.11253, 0.07825, 0.0 ]
+      rotation: [ 0, 0, 1, 55.7 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_11
+      translation: [ 0.06555, 0.0937, 0.0 ]
+      rotation: [ 0, 0, 1, -29.9 ]
+      elements: &PLATE_MIDDLE_BOX_11
+        Shape:
+          geometry: { type: Box, size: [ 0.101, 0.1, 0.006 ] }
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_12
+      translation: [ 0.02785, 0.12685, 0.0 ]
+      rotation: [ 0, 0, 1, 65.5 ]
+      elements: &PLATE_MIDDLE_BOX_12
+        Shape:
+          geometry: { type: Box, size: [ 0.08, 0.005, 0.006 ] }
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_13
+      translation: [ 0.02578, 0.12769, 0.0 ]
+      rotation: [ 0, 0, 1, 69.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_14
+      translation: [ 0.02367, 0.1284, 0.0 ]
+      rotation: [ 0, 0, 1, 73.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_15
+      translation: [ 0.02154, 0.12895, 0.0 ]
+      rotation: [ 0, 0, 1, 77.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_16
+      translation: [ 0.01937, 0.12938, 0.0 ]
+      rotation: [ 0, 0, 1, 81.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_17
+      translation: [ 0.01655, 0.12975, 0.0 ]
+      rotation: [ 0, 0, 1, 84.6 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_18
+      translation: [ 0.01408, 0.12987, 0.0 ]
+      rotation: [ 0, 0, 1, 88.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_19
+      translation: [ 0.01195, 0.12983, 0.0 ]
+      rotation: [ 0, 0, 1, 92.2  ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_20
+      translation: [ 0.00975, 0.12965, 0.0 ]
+      rotation: [ 0, 0, 1, 96.2  ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_21
+      translation: [ 0.00735, 0.12928, 0.0 ]
+      rotation: [ 0, 0, 1, 99.8  ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_22
+      translation: [ 0.00495, 0.12878, 0.0 ]
+      rotation: [ 0, 0, 1, 103.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_23
+      translation: [ 0.00295, 0.1282, 0.0 ]
+      rotation: [ 0, 0, 1, 107.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_24
+      translation: [ 0.00085, 0.12744, 0.0 ]
+      rotation: [ 0, 0, 1, 111.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_25
+      translation: [ -0.00115, 0.12657, 0.0 ]
+      rotation: [ 0, 0, 1, 115.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_26
+      translation: [ -0.0402, 0.0926, 0.0 ]
+      rotation: [ 0, 0, 1, 30.0 ]
+      elements: &PLATE_MIDDLE_BOX_21
+        Shape:
+          geometry: { type: Box, size: [ 0.104, 0.1, 0.006 ] }
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_27
+      translation: [ -0.0889, 0.07589, 0.0 ]
+      rotation: [ 0, 0, 1, 125.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_28
+      translation: [ -0.09065, 0.07455, 0.0 ]
+      rotation: [ 0, 0, 1, 129.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_29
+      translation: [ -0.09245, 0.073, 0.0 ]
+      rotation: [ 0, 0, 1, 133.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_30
+      translation: [ -0.09415 , 0.0713, 0.0 ]
+      rotation: [ 0, 0, 1, 136.8 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_31
+      translation: [ -0.09555 , 0.0697, 0.0 ]
+      rotation: [ 0, 0, 1, 140.8 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_32
+      translation: [ -0.0969, 0.0679, 0.0 ]
+      rotation: [ 0, 0, 1, 144.4 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_33
+      translation: [ -0.09825, 0.06598, 0.0 ]
+      rotation: [ 0, 0, 1, 148.1 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_34
+      translation: [ -0.0994, 0.06401, 0.0 ]
+      rotation: [ 0, 0, 1, 152.0 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_35
+      translation: [ -0.1004, 0.06196, 0.0 ]
+      rotation: [ 0, 0, 1, 155.9 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_36
+      translation: [ -0.1013, 0.05985, 0.0 ]
+      rotation: [ 0, 0, 1, 159.7 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_37
+      translation: [ -0.102, 0.05775, 0.0 ]
+      rotation: [ 0, 0, 1, 163.6 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_38
+      translation: [ -0.10265, 0.05535, 0.0 ]
+      rotation: [ 0, 0, 1, 167.0 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_39
+      translation: [ -0.1031, 0.0532, 0.0 ]
+      rotation: [ 0, 0, 1, 171.0 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_40
+      translation: [ -0.10342, 0.0508, 0.0 ]
+      rotation: [ 0, 0, 1, 174.6 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_41
+      translation: [ -0.10357, 0.04855, 0.0 ]
+      rotation: [ 0, 0, 1, 178.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_42
+      translation: [ -0.13513, 0.0265, 0.0 ]
+      elements: &PLATE_MIDDLE_BOX_42
+        Shape:
+          geometry: { type: Box, size: [ 0.017, 0.046, 0.006 ] }
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_43
+      translation: [ -0.12, 0.04, 0.0 ]
+      elements: &PLATE_MIDDLE_BOX_43
+        Shape:
+          geometry: { type: Box, size: [ 0.018, 0.02, 0.006 ] }
+    - # Right side
+      type: Transform
+      name: PLATE_MIDDLE_BOX_44
+      translation: [ 0.103636, -0.09385, 0.0 ]
+      rotation: [ 0, 0, 1, -3.1 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_45
+      translation: [ 0.10375, -0.0924, 0.0 ]
+      rotation: [ 0, 0, 1, -8.1 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_46
+      translation: [ 0.10433, -0.08959, 0.0 ]
+      rotation: [ 0, 0, 1, -15.1 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_47
+      translation: [ 0.10487, -0.08792, 0.0 ]
+      rotation: [ 0, 0, 1, -20.5 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_48
+      translation: [ 0.10606, -0.0853, 0.0 ]
+      rotation: [ 0, 0, 1, -27.5 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_49
+      translation: [ 0.10715, -0.0835, 0.0 ]
+      rotation: [ 0, 0, 1, -33.4 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_50
+      translation: [ 0.10795, -0.08245, 0.0 ]
+      rotation: [ 0, 0, 1, -38.2 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_51
+      translation: [ 0.10986, -0.08035, 0.0 ]
+      rotation: [ 0, 0, 1, -45.2 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_52
+      translation: [ 0.11132, -0.0791, 0.0 ]
+      rotation: [ 0, 0, 1, -50.7 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_53
+      translation: [ 0.11253, -0.07825, 0.0 ]
+      rotation: [ 0, 0, 1, -55.7 ]
+      elements: *PLATE_MIDDLE_BOX_1
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_54
+      translation: [ 0.06555, -0.0937, 0.0 ]
+      rotation: [ 0, 0, 1, 29.9 ]
+      elements: *PLATE_MIDDLE_BOX_11
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_55
+      translation: [ 0.02785, -0.12685, 0.0 ]
+      rotation: [ 0, 0, 1, -65.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_56
+      translation: [ 0.02578, -0.12769, 0.0 ]
+      rotation: [ 0, 0, 1, -69.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_57
+      translation: [ 0.02367, -0.1284, 0.0 ]
+      rotation: [ 0, 0, 1, -73.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_58
+      translation: [ 0.02154, -0.12895, 0.0 ]
+      rotation: [ 0, 0, 1, -77.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_59
+      translation: [ 0.01937, -0.12938, 0.0 ]
+      rotation: [ 0, 0, 1, -81.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_60
+      translation: [ 0.01655, -0.12975, 0.0 ]
+      rotation: [ 0, 0, 1, -84.6 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_61
+      translation: [ 0.01408, -0.12987, 0.0 ]
+      rotation: [ 0, 0, 1, -88.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_62
+      translation: [ 0.01195, -0.12983, 0.0 ]
+      rotation: [ 0, 0, 1, -92.2  ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_63
+      translation: [ 0.00975, -0.12965, 0.0 ]
+      rotation: [ 0, 0, 1, -96.2  ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_64
+      translation: [ 0.00735, -0.12928, 0.0 ]
+      rotation: [ 0, 0, 1, -99.8  ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_65
+      translation: [ 0.00495, -0.12878, 0.0 ]
+      rotation: [ 0, 0, 1, -103.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_66
+      translation: [ 0.00295, -0.1282, 0.0 ]
+      rotation: [ 0, 0, 1, -107.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_67
+      translation: [ 0.00085, -0.12744, 0.0 ]
+      rotation: [ 0, 0, 1, -111.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_68
+      translation: [ -0.00115, -0.12657, 0.0 ]
+      rotation: [ 0, 0, 1, -115.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_69
+      translation: [ -0.0402, -0.0926, 0.0 ]
+      rotation: [ 0, 0, 1, -30.0 ]
+      elements: *PLATE_MIDDLE_BOX_21
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_70
+      translation: [ -0.0889, -0.07589, 0.0 ]
+      rotation: [ 0, 0, 1, -125.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_71
+      translation: [ -0.09065, -0.07455, 0.0 ]
+      rotation: [ 0, 0, 1, -129.5 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_72
+      translation: [ -0.09245, -0.073, 0.0 ]
+      rotation: [ 0, 0, 1, -133.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_73
+      translation: [ -0.09415, -0.0713, 0.0 ]
+      rotation: [ 0, 0, 1, -136.8 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_74
+      translation: [ -0.09555, -0.0697, 0.0 ]
+      rotation: [ 0, 0, 1, -140.8 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_75
+      translation: [ -0.0969, -0.0679, 0.0 ]
+      rotation: [ 0, 0, 1, -144.4 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_76
+      translation: [ -0.09825, -0.06598, 0.0 ]
+      rotation: [ 0, 0, 1, -148.1 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_77
+      translation: [ -0.0994, -0.06401, 0.0 ]
+      rotation: [ 0, 0, 1, -152.0 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_78
+      translation: [ -0.1004, -0.06196, 0.0 ]
+      rotation: [ 0, 0, 1, -155.9 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_79
+      translation: [ -0.1013, -0.05985, 0.0 ]
+      rotation: [ 0, 0, 1, -159.7 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_80
+      translation: [ -0.102, -0.05775, 0.0 ]
+      rotation: [ 0, 0, 1, -163.6 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_81
+      translation: [ -0.10265, -0.05535, 0.0 ]
+      rotation: [ 0, 0, 1, -167.0 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_82
+      translation: [ -0.1031, -0.0532, 0.0 ]
+      rotation: [ 0, 0, 1, -171.0 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_83
+      translation: [ -0.10342, -0.0508, 0.0 ]
+      rotation: [ 0, 0, 1, -174.6 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_84
+      translation: [ -0.10357, -0.04855, 0.0 ]
+      rotation: [ 0, 0, 1, -178.2 ]
+      elements: *PLATE_MIDDLE_BOX_12
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_85
+      translation: [ -0.13513, -0.0265, 0.0 ]
+      elements: *PLATE_MIDDLE_BOX_42
+    -
+      type: Transform
+      name: PLATE_MIDDLE_BOX_86
+      translation: [ -0.12, -0.04, 0.0 ]
+      elements: *PLATE_MIDDLE_BOX_43

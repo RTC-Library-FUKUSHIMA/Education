@@ -1,3 +1,5 @@
 # Education
 
 Training4RobotEngineers：在職者向けロボット関連人材育成研修のファイル置き場
+ChoreonoidWorkshop：Choreonoid講習会関連のファイル格納場所
+

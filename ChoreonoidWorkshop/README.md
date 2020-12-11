@@ -95,3 +95,10 @@ $ sudo make install
 $ cd ~/choreonoid/program
 $ choreonoid share/choreonoid-1.8/TurtleBot2/project/TurtleBot2.cnoid
 ```
+
+## 5. matplotlib-cppのインストール方法
+```bash
+$ cd /usr/local/include/
+$ sudo git clone https://github.com/lava/matplotlib-cpp.git
+$ sudo apt install -y python3-matplotlib python3-numpy python3.6-dev
+```

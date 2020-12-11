@@ -8,10 +8,7 @@
  */
 
 #include <cnoid/SimpleController>
-#include <cnoid/RootItem>
-#include <cnoid/SimulatorItem>
 #include <fmt/format.h>
-#include <string>
 
 using namespace std;
 using namespace cnoid;

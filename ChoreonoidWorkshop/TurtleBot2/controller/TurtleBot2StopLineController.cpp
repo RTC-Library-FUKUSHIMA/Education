@@ -38,7 +38,7 @@ class TurtleBot2StopLineController : public SimpleController
 	const double Kp = 48.0;
 	// 画像内の白線の目標値
 	static const int TARGET = 15000;
-	// 現在のスコープ限定の接続
+	// シグナル設定状態取得変数
 	ScopedConnection cameraConnection;
 
 public:

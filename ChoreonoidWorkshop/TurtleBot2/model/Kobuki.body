@@ -79,9 +79,9 @@ links:
         type: RigidBody
         centerOfMass: [ 0, 0, 0 ]
         mass: 0.03
-        inertia: [ 0.001,   0.0,   0.0,
-                     0.0, 0.001,   0.0,
-                     0.0,   0.0, 0.001 ]
+        inertia: [ 0.0001,   0.0,   0.0,
+                     0.0, 0.0001,   0.0,
+                     0.0,   0.0, 0.0001 ]
       -
         type: Visual
         rotation: [ 1, 0, 0, 90 ]

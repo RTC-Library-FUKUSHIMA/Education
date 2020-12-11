@@ -65,11 +65,11 @@ class TurtleBot2AutoController : public SimpleController
 	static const int BUF_SIZE = 100;
 	char str[BUF_SIZE];
 	// カレントディレクトリ取得コマンド
-	string cmd = "cd; cd choreonoid/ext/TurtleBot2/; pwd | tr '\n' '/'";
+	string cmd = "cd; cd choreonoid/ext/Education/ChoreonoidWorkshop/TurtleBot2/plot/; pwd | tr '\n' '/'";
 	// ファイルパス
 	string filePath = "";
 	const string FILENAME = "plot.tsv";
-	// 現在のスコープ限定の接続
+	// シグナル設定状態取得変数
 	ScopedConnection cameraConnection;
 
 public:

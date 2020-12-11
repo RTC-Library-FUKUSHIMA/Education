@@ -9,8 +9,6 @@
  */
 
 #include <cnoid/SimpleController>
-#include <cnoid/RootItem>
-#include <cnoid/SimulatorItem>
 #include <fmt/format.h>
 
 using namespace std;
@@ -97,7 +95,7 @@ public:
 			va = vx = 0.0;
 		}else if(io->currentTime() < 2.7){
 			// 0.5s間右旋回
-			va = -2.41;
+			va = -2.1;
 			vx = 0.0;
 		}else if(io->currentTime() < 2.9){
 			va = vx = 0.0;
@@ -109,7 +107,7 @@ public:
 			va = vx = 0.0;
 		}else if(io->currentTime() < 5.6){
 			// 0.5s間左旋回
-			va = 2.41;
+			va = 2.1;
 			vx = 0.0;
 		}else if(io->currentTime() < 5.8){
 			va = vx = 0.0;

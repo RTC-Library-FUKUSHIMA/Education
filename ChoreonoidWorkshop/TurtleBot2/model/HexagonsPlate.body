@@ -20,10 +20,10 @@ links:
     elements: &POLE_BOTTOM
       -
         type: RigidBody
-        mass: 0.012
-        inertia: [ 1.784E-06, 2.149E-07, 1.784E-06,
-                   2.149E-07, 1.784E-06, 1.784E-06,
-                   1.784E-06, 1.784E-06, 2.149E-07 ]
+        mass: 0.008
+        inertia: [ 1.686E-06,       0.0,       0.0,
+                         0.0, 1.686E-06,       0.0,
+                         0.0,       0.0, 1.440E-07 ]
       -
         type: Visual
         elements:
@@ -71,10 +71,10 @@ links:
     elements:
       - &PLATE_RIGID
         type: RigidBody
-        mass: 0.259
-        inertia: [ 0.002, 0.003, 0.001,
-                   0.003, 0.001, 0.002,
-                   0.001, 0.002, 0.003 ]
+        mass: 0.52
+        inertia: [ 0.003328,      0.0,      0.0,
+                        0.0, 0.003328,      0.0,
+                        0.0,      0.0, 0.006656 ]
       -
         type: Visual
         elements:
@@ -93,10 +93,10 @@ links:
     elements: &POLE_MIDDLE
       -
         type: RigidBody
-        mass: 0.016
-        inertia: [ 3.693E-06, 2.784E-07, 3.693E-06,
-                   2.784E-07, 3.693E-06, 3.693E-06,
-                   3.693E-06, 3.693E-06, 2.784E-07 ]
+        mass: 0.012
+        inertia: [ 3.805E-06,       0.0,       0.0,
+                         0.0, 3.805E-06,       0.0,
+                         0.0,       0.0, 2.160E-07 ]
       -
         type: Visual
         elements:
@@ -152,10 +152,10 @@ links:
     elements: &POLE_TOP
       -
         type: RigidBody
-        mass: 0.062
-        inertia: [ 2.136E-04, 1.112E-06, 2.136E-04,
-                   1.112E-06, 2.136E-04, 2.136E-04,
-                   2.136E-04, 2.136E-04, 1.112E-06 ]
+        mass: 0.06
+        inertia: [ 2.06991E-04,         0.0,       0.0,
+                           0.0, 2.06991E-04,       0.0,
+                           0.0,         0.0, 1.080E-06 ]
       -
         type: Visual
         elements:
@@ -212,10 +212,10 @@ links:
     elements: &POLE_KINECT
       -
         type: RigidBody
-        mass: 0.026
-        inertia: [ 1.530E-05, 4.530E-07, 1.530E-05,
-                   4.530E-07, 1.530E-05, 1.530E-05,
-                   1.530E-05, 1.530E-05, 4.530E-07 ]
+        mass: 0.02
+        inertia: [ 1.4782E-05,        0.0,       0.0,
+                          0.0, 1.4782E-05,       0.0,
+                          0.0,        0.0, 3.600E-07 ]
       -
         type: Visual
         elements:

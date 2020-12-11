@@ -119,7 +119,7 @@ public:
 		// 前回の偏差値を設定
 		diff_L[0] = diff_L[1];
 		// 現在の偏差値(目標値 - センサ値)を取得(センサで黄色の割合を取得)
-		diff_L[1] = TARGET - cnt[1] / 2500;
+		diff_L[1] = (TARGET - cnt[1]) / 2500;
 		// 偏差の積分値を取得。偏差の積分値 = (( 最新の偏差 + 前回の偏差 ) / 2 ) * 時間
 		//                                = 偏差の平均 * 時間
 		integral[0] += (diff_L[1] + diff_L[0]) / 2.0 * dt;
@@ -128,7 +128,7 @@ public:
 
 		diff_R[0] = diff_R[1];
 		// 現在の偏差値(目標値 - センサ値)を取得(センサで白の割合を取得)
-		diff_R[1] = TARGET - cnt[1]  / 2500;
+		diff_R[1] = (TARGET - cnt[1])  / 2500;
 		integral[1] += (diff_R[1] + diff_R[0]) / 2.0 * dt;
 		derivation[1] = (diff_R[1] - diff_R[0]) / dt;
 

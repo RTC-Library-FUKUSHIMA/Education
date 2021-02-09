@@ -50,7 +50,7 @@ items:
               data: 
                 isNoDelayMode: false
                 controllerOptions: ""
-                controller: "TurtleBot2StraightController.so"
+                controller: "TurtleBot2StraightController"
                 baseDirectory: "Controller directory"
                 reloading: false
                 exportSymbols: false

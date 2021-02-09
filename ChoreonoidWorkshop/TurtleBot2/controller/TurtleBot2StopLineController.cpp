@@ -161,18 +161,18 @@ public:
 				rgb[1] = (int)src[i * 3 + 1];
 				rgb[2] = (int)src[i * 3 + 2];
 
-				if((rgb[0] >= 100 and rgb[0] < 180)
-						and (rgb[1] >= 100 and rgb[1] < 180)
-						and (rgb[2] >= 100 and rgb[2] < 180)
-						and abs(rgb[0] - rgb[1]) <= 10
-						and abs(rgb[1] - rgb[2]) <= 10
-						and abs(rgb[2] - rgb[0]) <= 10){
+				if((rgb[0] >= 100 && rgb[0] < 180)
+						&& (rgb[1] >= 100 && rgb[1] < 180)
+						&& (rgb[2] >= 100 && rgb[2] < 180)
+						&& abs(rgb[0] - rgb[1]) <= 10
+						&& abs(rgb[1] - rgb[2]) <= 10
+						&& abs(rgb[2] - rgb[0]) <= 10){
 					// グレーの個数をカウント
 					cnt[0]++;
-				}else if(rgb[0] >= 180 and rgb[1] >= 180 and rgb[2] >= 180){
+				}else if(rgb[0] >= 180 && rgb[1] >= 180 && rgb[2] >= 180){
 					// 白の個数をカウント
 					cnt[1]++;
-				}else if(rgb[0] >= 170 and rgb[1] >= 170 and rgb[2] <= 100){
+				}else if(rgb[0] >= 170 && rgb[1] >= 170 && rgb[2] <= 100){
 					// 黄色の個数をカウント
 					cnt[2]++;
 				}

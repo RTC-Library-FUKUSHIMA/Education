@@ -14,6 +14,9 @@
 #include <cnoid/SimulatorItem>
 #include <fmt/format.h>
 #include <fstream>
+#ifndef _WIN32
+#include <stdio.h>
+#endif // !_WIN32
 
 using namespace std;
 using namespace cnoid;
@@ -65,7 +68,12 @@ class TurtleBot2AutoController : public SimpleController
 	static const int BUF_SIZE = 100;
 	char str[BUF_SIZE];
 	// カレントディレクトリ取得コマンド
+#ifdef _WIN32
+	string cmd = "echo %USERPROFILE%\\choreonoid\\ext\\Education\\ChoreonoidWorkshop\\TurtleBot2\\plot\\";
+#else
 	string cmd = "cd; cd choreonoid/ext/Education/ChoreonoidWorkshop/TurtleBot2/plot/; pwd | tr '\n' '/'";
+#endif // !_WIN32
+
 	// ファイルパス
 	string filePath = "";
 	const string FILENAME = "plot.tsv";
@@ -133,9 +141,22 @@ public:
 		// タイムステップの設定
 		dt = io->timeStep();
 
-		if((fp = popen(cmd.c_str(), "r")) != NULL){
+#ifdef _WIN32
+		if ((fp = _popen(cmd.c_str(), "r")) != NULL) {
 			// プロセスをオープンしコマンドを実行
-			while(fgets(str, sizeof(str), fp) != NULL){
+			while (fgets(str, sizeof(str), fp) != NULL) {
+				// コマンド結果を1行ずつ読み込む
+				// カレントディレクトリの取得
+				str[strlen(str) - 1] = '\0';
+				filePath += str;
+			}
+			// プロセスをクローズ
+			_pclose(fp);
+		}
+#else
+		if ((fp = popen(cmd.c_str(), "r")) != NULL) {
+			// プロセスをオープンしコマンドを実行
+			while (fgets(str, sizeof(str), fp) != NULL) {
 				// コマンド結果を1行ずつ読み込む
 				// カレントディレクトリの取得
 				filePath += str;
@@ -143,10 +164,10 @@ public:
 			// プロセスをクローズ
 			pclose(fp);
 		}
-		io->os() << filePath << endl;
-
+#endif // _WIN32
 		// ディレクトリ名とファイル名を連結
 		filePath = filePath + FILENAME;
+		io->os() << filePath << endl;
 
 		ofs.open(filePath, ios::out);
 		startTime = 0.0;
@@ -201,7 +222,7 @@ public:
 			wheels[1]->dq_target() = dq_target[1];
 
 			// 黄色と白の線がなくなったら停止
-			if(cnt[1] == 0 and cnt[2] == 0){
+			if(cnt[1] == 0 && cnt[2] == 0){
 				wheels[0]->dq_target() = 0.0;
 				wheels[1]->dq_target() = 0.0;
 			}
@@ -262,18 +283,18 @@ public:
 				rgb[1] = (int)src[i * 3 + 1];
 				rgb[2] = (int)src[i * 3 + 2];
 
-				if((rgb[0] >= 100 and rgb[0] < 180)
-						and (rgb[1] >= 100 and rgb[1] < 180)
-						and (rgb[2] >= 100 and rgb[2] < 180)
-						and abs(rgb[0] - rgb[1]) <= 10
-						and abs(rgb[1] - rgb[2]) <= 10
-						and abs(rgb[2] - rgb[0]) <= 10){
+				if((rgb[0] >= 100 && rgb[0] < 180)
+						&& (rgb[1] >= 100 && rgb[1] < 180)
+						&& (rgb[2] >= 100 && rgb[2] < 180)
+						&& abs(rgb[0] - rgb[1]) <= 10
+						&& abs(rgb[1] - rgb[2]) <= 10
+						&& abs(rgb[2] - rgb[0]) <= 10){
 					// グレーの個数をカウント
 					cnt[0]++;
-				}else if(rgb[0] >= 180 and rgb[1] >= 180 and rgb[2] >= 180){
+				}else if(rgb[0] >= 180 && rgb[1] >= 180 && rgb[2] >= 180){
 					// 白の個数をカウント
 					cnt[1]++;
-				}else if(rgb[0] >= 170 and rgb[1] >= 170 and rgb[2] <= 100){
+				}else if(rgb[0] >= 170 && rgb[1] >= 170 && rgb[2] <= 100){
 					// 黄色の個数をカウント
 					cnt[2]++;
 				}

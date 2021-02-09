@@ -49,7 +49,7 @@ items:
               data: 
                 isNoDelayMode: false
                 controllerOptions: ""
-                controller: "TurtleBot2JoystickController.so"
+                controller: "TurtleBot2JoystickController"
                 baseDirectory: "Controller directory"
                 reloading: false
                 exportSymbols: false

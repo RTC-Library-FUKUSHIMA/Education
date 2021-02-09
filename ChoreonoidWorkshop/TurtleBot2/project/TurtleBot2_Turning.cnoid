@@ -50,7 +50,7 @@ items:
               data: 
                 isNoDelayMode: false
                 controllerOptions: ""
-                controller: "TurtleBot2TurningController.so"
+                controller: "TurtleBot2TurningController"
                 baseDirectory: "Controller directory"
                 reloading: false
                 exportSymbols: false

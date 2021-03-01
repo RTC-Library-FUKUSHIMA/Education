@@ -9,10 +9,6 @@
 
 #include <cnoid/SimpleController>
 #include <cnoid/SpotLight>
-#include <cnoid/RootItem>
-#include <cnoid/SimulatorItem>
-#include <fmt/format.h>
-#include <iostream>
 
 using namespace cnoid;
 using namespace std;
@@ -28,7 +24,6 @@ class TrafficLightController : public SimpleController
 	// シンプルコントローラ入出力格納変数
 	SimpleControllerIO* io;
 	// 切り替え時間
-	double simTime;
 	double switchTime;
 	bool onFlg;
 

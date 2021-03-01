@@ -32,6 +32,8 @@ class TurtleBot2TurningController : public SimpleController
 	const double d = 0.115;
 	// 比例係数
 	const double Kp = 48.0;
+	// 開始時間
+	double startTime = 0.0;
 
 public:
 	virtual bool initialize(SimpleControllerIO* io) override
@@ -43,11 +45,11 @@ public:
 		// Bodyの取得
 		body = io->body();
 
-		// アクチュエーションモードの初期化
+		// リンクのアクチュエーションモード設定
 		actuationMode = Link::JOINT_TORQUE;
 		// コントローラオプションの取得
 		string option = io->optionString();
-
+		
 		if(!option.empty()){
 			// コントローラオプションが空の場合
 			if(option == "velocity" || option == "position"){
@@ -76,7 +78,8 @@ public:
 			// ホイールリンクへコントローラからの出力を有効化
 			io->enableOutput(wheels[i]);
 		}
-
+		
+		startTime = io->currentTime();
 		return true;
 	}
 
@@ -84,38 +87,36 @@ public:
 	{
 		// 車体の中心の速度vx(m/s), 旋回角速度va(rad/s)
 		double vx, va;
-		va = 0.5;
-		vx = 0.3;
 
-		if(io->currentTime() < 2.0){
+		if(io->currentTime() - startTime < 2.0){
 			// シミュレーション時間が2s未満の場合、直進
 			va = 0.0;
 			vx = 0.3;
-		}else if(io->currentTime() < 2.2){
+		} else if(io->currentTime() - startTime < 2.2){
 			va = vx = 0.0;
-		}else if(io->currentTime() < 2.7){
+		} else if(io->currentTime() - startTime < 2.7){
 			// 0.5s間右旋回
 			va = -2.1;
 			vx = 0.0;
-		}else if(io->currentTime() < 2.9){
+		} else if(io->currentTime() - startTime < 2.9){
 			va = vx = 0.0;
-		}else if(io->currentTime() < 4.9){
+		} else if(io->currentTime() - startTime < 4.9){
 			// 2s間直進
 			va = 0.0;
 			vx = 0.3;
-		}else if(io->currentTime() < 5.1){
+		} else if(io->currentTime() - startTime < 5.1){
 			va = vx = 0.0;
-		}else if(io->currentTime() < 5.6){
+		} else if(io->currentTime() - startTime < 5.6){
 			// 0.5s間左旋回
 			va = 2.1;
 			vx = 0.0;
-		}else if(io->currentTime() < 5.8){
+		} else if(io->currentTime() - startTime < 5.8){
 			va = vx = 0.0;
-		}else if(io->currentTime() < 7.8){
+		} else if(io->currentTime() - startTime < 7.8){
 			// 2s間直進
 			va = 0.0;
 			vx = 0.3;
-		}else{
+		} else {
 			// 停止
 			va = vx = 0.0;
 		}

@@ -10,9 +10,10 @@ links:
     translation: [ 0.0, 0.0, -0.075 ]
     centerOfMass: [ 0, 0, 0 ]
     mass: 100.0
-    inertia: [ 0.5, 0.0, 0.0,
-               0.0, 0.5, 0.0,
-               0.0, 0.0, 0.5 ]
+    inertia: [
+      0.5, 0.0, 0.0,
+      0.0, 0.5, 0.0,
+      0.0, 0.0, 0.5 ]
     elements:
       -
         type: Visual

@@ -22,6 +22,11 @@ links:
     translation: [ 0.17, 0.0, 0.2 ]
     rotation: [ [ 0, 0, 1, 90 ], [ 1, 0, 0, 50 ] ]
     jointType: fixed
+    mass: 0.001
+    inertia: [
+      1.0e-08,     0.0,     0.0,
+          0.0, 1.0e-08,     0.0,
+          0.0,     0.0, 1.0e-08 ]
     elements:
       -
         type: Camera

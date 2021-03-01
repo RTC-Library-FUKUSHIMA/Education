@@ -12,6 +12,11 @@ links:
     name: hexagons_base
     translation: [ 0.0, 0.0, -0.061 ]
     jointType: fixed
+    mass: 1.879
+    inertia: [
+      0.01,  0.0,  0.0,
+       0.0, 0.01,  0.0,
+       0.0,  0.0, 0.02 ]
   -
     name: pole_bottom_0
     parent: hexagons_base
@@ -21,9 +26,10 @@ links:
       -
         type: RigidBody
         mass: 0.008
-        inertia: [ 1.686E-06,       0.0,       0.0,
-                         0.0, 1.686E-06,       0.0,
-                         0.0,       0.0, 1.440E-07 ]
+        inertia: [
+          1.686E-06,       0.0,       0.0,
+                0.0, 1.686E-06,       0.0,
+                0.0,       0.0, 1.440E-07 ]
       -
         type: Visual
         elements:
@@ -72,9 +78,10 @@ links:
       - &PLATE_RIGID
         type: RigidBody
         mass: 0.52
-        inertia: [ 0.003328,      0.0,      0.0,
-                        0.0, 0.003328,      0.0,
-                        0.0,      0.0, 0.006656 ]
+        inertia: [
+          0.003328,      0.0,      0.0,
+               0.0, 0.003328,      0.0,
+               0.0,      0.0, 0.006656 ]
       -
         type: Visual
         elements:
@@ -94,9 +101,10 @@ links:
       -
         type: RigidBody
         mass: 0.012
-        inertia: [ 3.805E-06,       0.0,       0.0,
-                         0.0, 3.805E-06,       0.0,
-                         0.0,       0.0, 2.160E-07 ]
+        inertia: [
+          3.805E-06,       0.0,       0.0,
+                0.0, 3.805E-06,       0.0,
+                0.0,       0.0, 2.160E-07 ]
       -
         type: Visual
         elements:
@@ -153,9 +161,10 @@ links:
       -
         type: RigidBody
         mass: 0.06
-        inertia: [ 2.06991E-04,         0.0,       0.0,
-                           0.0, 2.06991E-04,       0.0,
-                           0.0,         0.0, 1.080E-06 ]
+        inertia: [
+          2.06991E-04,         0.0,       0.0,
+                  0.0, 2.06991E-04,       0.0,
+                  0.0,         0.0, 1.080E-06 ]
       -
         type: Visual
         elements:
@@ -213,9 +222,10 @@ links:
       -
         type: RigidBody
         mass: 0.02
-        inertia: [ 1.4782E-05,        0.0,       0.0,
-                          0.0, 1.4782E-05,       0.0,
-                          0.0,        0.0, 3.600E-07 ]
+        inertia: [
+          1.4782E-05,        0.0,       0.0,
+                 0.0, 1.4782E-05,       0.0,
+                 0.0,        0.0, 3.600E-07 ]
       -
         type: Visual
         elements:
@@ -233,11 +243,6 @@ links:
     translation: [ -0.1024, 0.098, 0.2324 ]
     jointType: fixed
     elements: *POLE_KINECT
-  -
-    name: notepc
-    parent: hexagons_base
-    jointType: fixed
-    mass: 1.879
   -
     name: kinect
     type: SubBody

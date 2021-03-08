@@ -4,8 +4,8 @@
  *  Created on: 2019/04/17
  *      Author: Tsuyoshi Anazawa
  *
- *  概要: TurtleBot2モデルをAutoRaceCourse.bodyのコースにある白線と黄色線を
- *        取得しライントレース（自律走行）するプログラム
+ *  $B35MW(B: TurtleBot2$B%b%G%k$r(BAutoRaceCourse.body$B$N%3!<%9$K$"$kGr@~$H2+?'@~$r(B
+ *        $B<hF@$7%i%$%s%H%l!<%9!J<+N'Av9T!K$9$k%W%m%0%i%`(B
  */
 
 #include <cnoid/SimpleController>
@@ -23,149 +23,149 @@ using namespace cnoid;
 
 class TurtleBot2AutoController : public SimpleController
 {
-	// ホイール数
+	// $B%[%$!<%k?t(B
 	static const int WHEEL_NUM = 2;
-	// bodyファイルに定義されたホイール名
+	// body$B%U%!%$%k$KDj5A$5$l$?%[%$!<%kL>(B
 	const string wheelNames[WHEEL_NUM] = { "wheel_left", "wheel_right" };
-	// アクチュエーションモード格納変数
+	// $B%"%/%A%e%(!<%7%g%s%b!<%I3JG<JQ?t(B
 	Link::ActuationMode actuationMode;
-	// ホイール格納配列
+	// $B%[%$!<%k3JG<G[Ns(B
 	Link* wheels[2];
 	Link* rootLink;
-	// タイムステップ格納変数
+	// $B%?%$%`%9%F%C%W3JG<JQ?t(B
 	double dt;
-	// シンプルコントローラ入出力格納変数
+	// $B%7%s%W%k%3%s%H%m!<%iF~=PNO3JG<JQ?t(B
 	SimpleControllerIO* io;
-	// Body情報格納変数
+	// Body$B>pJs3JG<JQ?t(B
 	Body* body;
-	// カメラデバイス情報格納変数
+	// $B%+%a%i%G%P%$%9>pJs3JG<JQ?t(B
 	CameraPtr camera;
-	// 前回の画像格納変数
+	// $BA02s$N2hA|3JG<JQ?t(B
 	std::shared_ptr<const Image> prevImage;
-	// 画像内のグレー、白、黄色の数の格納変数
+	// $B2hA|Fb$N%0%l!<!"Gr!"2+?'$N?t$N3JG<JQ?t(B
 	int cnt[3] = { 0, 0, 0 };
-	// トレッド幅/2(車体の中心から車輪までの距離)
+	// $B%H%l%C%II}(B/2($B<VBN$NCf?4$+$i<VNX$^$G$N5wN%(B)
 	const double d = 0.115;
-	// PID制御の係数
+	// PID$B@)8f$N78?t(B
 	const double Kp = 48.0;
 	const double Ki = 0.002;
 	const double Kd = 0.0007;
-	// 画像内の白、黄色の線の目標値
+	// $B2hA|Fb$NGr!"2+?'$N@~$NL\I8CM(B
 	static const int TARGET = 1700;
-	// 前回と現在の偏差値格納変数
+	// $BA02s$H8=:_$NJP:9CM3JG<JQ?t(B
 	double diff_R[2] = { 0, 0 };
 	double diff_L[2] = { 0, 0 };
-	// 偏差の積分値格納変数
+	// $BJP:9$N@QJ,CM3JG<JQ?t(B
 	double integral[2] = { 0, 0 };
-	// 偏差の微分値格納変数
+	// $BJP:9$NHyJ,CM3JG<JQ?t(B
 	double derivation[2] = { 0, 0 };
 	double startTime, waitTime;
 	const double INTERVAL = 0.1;
-	// ファイル出力ストリーム
+	// $B%U%!%$%k=PNO%9%H%j!<%`(B
 	ofstream ofs;
 	FILE* fp;
-	// バッファサイズ
+	// $B%P%C%U%!%5%$%:(B
 	static const int BUF_SIZE = 100;
 	char str[BUF_SIZE];
-	// カレントディレクトリ取得コマンド
+	// $B%+%l%s%H%G%#%l%/%H%j<hF@%3%^%s%I(B
 #ifdef _WIN32
 	string cmd = "echo %USERPROFILE%\\choreonoid\\ext\\Education\\ChoreonoidWorkshop\\TurtleBot2\\plot\\";
 #else
 	string cmd = "cd; cd choreonoid/ext/Education/ChoreonoidWorkshop/TurtleBot2/plot/; pwd | tr '\n' '/'";
 #endif // !_WIN32
 
-	// ファイルパス
+	// $B%U%!%$%k%Q%9(B
 	string filePath = "";
 	const string FILENAME = "plot.tsv";
-	// シグナル設定状態取得変数
+	// $B%7%0%J%k@_Dj>uBV<hF@JQ?t(B
 	ScopedConnection cameraConnection;
 
 public:
 	virtual bool initialize(SimpleControllerIO* io) override
 	{
-		// ioオブジェクトの取得
+		// io$B%*%V%8%'%/%H$N<hF@(B
 		this->io = io;
-		// 出力ストリームの取得
+		// $B=PNO%9%H%j!<%`$N<hF@(B
 		ostream& os = io->os();
-		// Bodyの取得
+		// Body$B$N<hF@(B
 		body = io->body();
 
-		// アクチュエーションモードの初期化
+		// $B%"%/%A%e%(!<%7%g%s%b!<%I$N=i4|2=(B
 		actuationMode = Link::JOINT_TORQUE;
-		// コントローラオプションの取得
+		// $B%3%s%H%m!<%i%*%W%7%g%s$N<hF@(B
 		string option = io->optionString();
 
 		if(!option.empty()){
-			// コントローラオプションが入力されている場合
+			// $B%3%s%H%m!<%i%*%W%7%g%s$,F~NO$5$l$F$$$k>l9g(B
 			if(option == "velocity" || option == "position"){
-				// velocity または positionの場合
+				// velocity $B$^$?$O(B position$B$N>l9g(B
 				actuationMode = Link::JOINT_VELOCITY;
 			} else if(option == "torque"){
-				// torqueの場合
+				// torque$B$N>l9g(B
 				actuationMode = Link::JOINT_TORQUE;
 			} else {
-				// それ以外の場合
+				// $B$=$l0J30$N>l9g(B
 				os << fmt::format("Warning: Unknown option \"{}\".", option) << endl;
 			}
 		}
 
 		for(int i = 0; i < WHEEL_NUM; ++i){
-			// 配列にホイールリンクを格納
+			// $BG[Ns$K%[%$!<%k%j%s%/$r3JG<(B
 			wheels[i] = body->link(wheelNames[i]);
 			if(!wheels[i]){
-				// リンクが取得できなかった場合
+				// $B%j%s%/$,<hF@$G$-$J$+$C$?>l9g(B
 				os << fmt::format("{0} of {1} is not found.", wheelNames[i], body->name()) << endl;
 				return false;
 			}
 
-			// リンクのアクチュエーションモードの設定
+			// $B%j%s%/$N%"%/%A%e%(!<%7%g%s%b!<%I$N@_Dj(B
 			wheels[i]->setActuationMode(actuationMode);
-			// ホイールリンクへコントローラからの出力を有効化
+			// $B%[%$!<%k%j%s%/$X%3%s%H%m!<%i$+$i$N=PNO$rM-8z2=(B
 			io->enableOutput(wheels[i]);
 		}
 
-		// TurtleBot2のコントローラへの入力を有効化
+		// TurtleBot2$B$N%3%s%H%m!<%i$X$NF~NO$rM-8z2=(B
 		rootLink = body->link("kobuki");
 		rootLink->setActuationMode(Link::LINK_POSITION);
 		io->enableInput(rootLink);
 
-		// LineTraceカメラを取得
+		// LineTrace$B%+%a%i$r<hF@(B
 		camera = body->findDevice<Camera>("LineTrace");
-		// カメラのコントローラへの入力を有効化
+		// $B%+%a%i$N%3%s%H%m!<%i$X$NF~NO$rM-8z2=(B
 		io->enableInput(camera);
-		// 接続の切断
+		// $B@\B3$N@ZCG(B
 		cameraConnection.disconnect();
-		// センサの状態が変わった場合、onCameraStateChanged()を呼び出す
+		// $B%;%s%5$N>uBV$,JQ$o$C$?>l9g!"(BonCameraStateChanged()$B$r8F$S=P$9(B
 		cameraConnection = camera->sigStateChanged().connect(
 				[&](){ onCameraStateChanged(); });
-		// タイムステップの設定
+		// $B%?%$%`%9%F%C%W$N@_Dj(B
 		dt = io->timeStep();
 
 #ifdef _WIN32
 		if ((fp = _popen(cmd.c_str(), "r")) != NULL) {
-			// プロセスをオープンしコマンドを実行
+			// $B%W%m%;%9$r%*!<%W%s$7%3%^%s%I$r<B9T(B
 			while (fgets(str, sizeof(str), fp) != NULL) {
-				// コマンド結果を1行ずつ読み込む
-				// カレントディレクトリの取得
+				// $B%3%^%s%I7k2L$r(B1$B9T$:$DFI$_9~$`(B
+				// $B%+%l%s%H%G%#%l%/%H%j$N<hF@(B
 				str[strlen(str) - 1] = '\0';
 				filePath += str;
 			}
-			// プロセスをクローズ
+			// $B%W%m%;%9$r%/%m!<%:(B
 			_pclose(fp);
 		}
 #else
 		if ((fp = popen(cmd.c_str(), "r")) != NULL) {
-			// プロセスをオープンしコマンドを実行
+			// $B%W%m%;%9$r%*!<%W%s$7%3%^%s%I$r<B9T(B
 			while (fgets(str, sizeof(str), fp) != NULL) {
-				// コマンド結果を1行ずつ読み込む
-				// カレントディレクトリの取得
+				// $B%3%^%s%I7k2L$r(B1$B9T$:$DFI$_9~$`(B
+				// $B%+%l%s%H%G%#%l%/%H%j$N<hF@(B
 				filePath += str;
 			}
-			// プロセスをクローズ
+			// $B%W%m%;%9$r%/%m!<%:(B
 			pclose(fp);
 		}
 #endif // _WIN32
-		// ディレクトリ名とファイル名を連結
+		// $B%G%#%l%/%H%jL>$H%U%!%$%kL>$rO"7k(B
 		filePath = filePath + FILENAME;
 		io->os() << filePath << endl;
 
@@ -177,34 +177,34 @@ public:
 
 	virtual bool control() override
 	{
-		// 車体の中心の速度vx(m/s), 旋回角速度va(rad/s)
+		// $B<VBN$NCf?4$NB.EY(Bvx(m/s), $B@{2s3QB.EY(Bva(rad/s)
 		double vx, va;
 		va = 0.5;
 		vx = 0.3;
 
-		// 前回の偏差値を設定
+		// $BA02s$NJP:9CM$r@_Dj(B
 		diff_L[0] = diff_L[1];
-		// 現在の偏差値(目標値 - センサ値)を取得(センサで黄色の割合を取得)
+		// $B8=:_$NJP:9CM(B($BL\I8CM(B - $B%;%s%5CM(B)$B$r<hF@(B($B%;%s%5$G2+?'$N3d9g$r<hF@(B)
 		diff_L[1] = (TARGET - cnt[2]) / 500;
-		// 偏差の積分値を取得。偏差の積分値 = (( 最新の偏差 + 前回の偏差 ) / 2 ) * 時間
-		//                                = 偏差の平均 * 時間
+		// $BJP:9$N@QJ,CM$r<hF@!#JP:9$N@QJ,CM(B = (( $B:G?7$NJP:9(B + $BA02s$NJP:9(B ) / 2 ) * $B;~4V(B
+		//                                = $BJP:9$NJ?6Q(B * $B;~4V(B
 		integral[0] += (diff_L[1] + diff_L[0]) / 2.0 * dt;
-		// 偏差の微分値を取得。偏差の微分値 = ( 最新の偏差 - 前回の偏差 ) / 時間
+		// $BJP:9$NHyJ,CM$r<hF@!#JP:9$NHyJ,CM(B = ( $B:G?7$NJP:9(B - $BA02s$NJP:9(B ) / $B;~4V(B
 		derivation[0] = (diff_L[1] - diff_L[0]) / dt;
 
 		diff_R[0] = diff_R[1];
-		// 現在の偏差値(目標値 - センサ値)を取得(センサで白の割合を取得)
+		// $B8=:_$NJP:9CM(B($BL\I8CM(B - $B%;%s%5CM(B)$B$r<hF@(B($B%;%s%5$GGr$N3d9g$r<hF@(B)
 		diff_R[1] = -(TARGET - cnt[1]) / 500;
 		integral[1] += (diff_R[1] + diff_R[0]) / 2.0 * dt;
 		derivation[1] = (diff_R[1] - diff_R[0]) / dt;
 
 		if(actuationMode == Link::JOINT_VELOCITY){
-			// アクチュエーションモードがvelocityの場合
-			// 関節速度の指令値格納変数
+			// $B%"%/%A%e%(!<%7%g%s%b!<%I$,(Bvelocity$B$N>l9g(B
+			// $B4X@aB.EY$N;XNaCM3JG<JQ?t(B
 			double dq_target[2];
-			// 右車輪の角速度を Wr, 左車輪の角速度を Wl
-			// 右車輪の速度を Vr, 左車輪の速度を Vl
-			// 車輪の半径を r、中心から車輪までの距離(トレッドの 1/2)を d
+			// $B1&<VNX$N3QB.EY$r(B Wr, $B:8<VNX$N3QB.EY$r(B Wl
+			// $B1&<VNX$NB.EY$r(B Vr, $B:8<VNX$NB.EY$r(B Vl
+			// $B<VNX$NH>7B$r(B r$B!"Cf?4$+$i<VNX$^$G$N5wN%(B($B%H%l%C%I$N(B 1/2)$B$r(B d
 			// Wr = (vx + va * d) / r
 			// Wl = (vx - va * d) / r
 			// r: 0.038(m), d: 0.115(m)
@@ -213,15 +213,15 @@ public:
 			// Vr = vx + va * 0.115
 			// Vl = vx - va * 0.115
 
-			// PID制御
+			// PID$B@)8f(B
 			dq_target[0] = Kp * (vx - (va * d * diff_L[1])) + Ki * (integral[0] * va * d) + Kd * (derivation[0] * va * d);
 			dq_target[1] = Kp * (vx + (va * d * diff_R[1])) + Ki * (integral[1] * va * d) + Kd * (derivation[1] * va * d);
 
-			// 左右のホイールに指令値を与える
+			// $B:81&$N%[%$!<%k$K;XNaCM$rM?$($k(B
 			wheels[0]->dq_target() = dq_target[0];
 			wheels[1]->dq_target() = dq_target[1];
 
-			// 黄色と白の線がなくなったら停止
+			// $B2+?'$HGr$N@~$,$J$/$J$C$?$iDd;_(B
 			if(cnt[1] == 0 && cnt[2] == 0){
 				wheels[0]->dq_target() = 0.0;
 				wheels[1]->dq_target() = 0.0;
@@ -229,7 +229,7 @@ public:
 		}
 
 		waitTime = io->currentTime() - startTime;
-		// 0.5s毎にファイル出力を行う
+		// 0.5s$BKh$K%U%!%$%k=PNO$r9T$&(B
 		if(waitTime >= INTERVAL){
 			ofs << io->currentTime() << "\t" << rootLink->position().translation().x() << "\t" << rootLink->position().translation().y() << "\t" << endl;
 			startTime = io->currentTime();
@@ -257,28 +257,28 @@ public:
 	{
 		size_t length = 0;
 		if(camera->sharedImage() != prevImage){
-			// カメラ画像が更新されたか確認
+			// $B%+%a%i2hA|$,99?7$5$l$?$+3NG'(B
 			const Image& image = camera->constImage();
 			if(!image.empty()){
-				// カメラ画像が取得できた場合
+				// $B%+%a%i2hA|$,<hF@$G$-$?>l9g(B
 				int width, height;
-				// 画像のサイズを取得
+				// $B2hA|$N%5%$%:$r<hF@(B
 				height = image.height();
 				width = image.width();
 				length = width * height * image.numComponents() * sizeof(unsigned char);
 			}
 
-			// 画像の1ピクセルごとのデータを取得
+			// $B2hA|$N(B1$B%T%/%;%k$4$H$N%G!<%?$r<hF@(B
 			unsigned char* src = (unsigned char*)image.pixels();
 
-			// グレー、白、黄色のカウント用配列の初期化
+			// $B%0%l!<!"Gr!"2+?'$N%+%&%s%HMQG[Ns$N=i4|2=(B
 			cnt[0] = cnt[1] = cnt[2] = 0;
-			// RGB値格納配列
+			// RGB$BCM3JG<G[Ns(B
 			int rgb[3];
 
-			// データ数分ループ
+			// $B%G!<%??tJ,%k!<%W(B
 			for(int i = 0; i < length / 3; ++i){
-				// RGBの値を格納
+				// RGB$B$NCM$r3JG<(B
 				rgb[0] = (int)src[i * 3];
 				rgb[1] = (int)src[i * 3 + 1];
 				rgb[2] = (int)src[i * 3 + 2];
@@ -289,17 +289,17 @@ public:
 						&& abs(rgb[0] - rgb[1]) <= 10
 						&& abs(rgb[1] - rgb[2]) <= 10
 						&& abs(rgb[2] - rgb[0]) <= 10){
-					// グレーの個数をカウント
+					// $B%0%l!<$N8D?t$r%+%&%s%H(B
 					cnt[0]++;
 				}else if(rgb[0] >= 180 && rgb[1] >= 180 && rgb[2] >= 180){
-					// 白の個数をカウント
+					// $BGr$N8D?t$r%+%&%s%H(B
 					cnt[1]++;
 				}else if(rgb[0] >= 170 && rgb[1] >= 170 && rgb[2] <= 100){
-					// 黄色の個数をカウント
+					// $B2+?'$N8D?t$r%+%&%s%H(B
 					cnt[2]++;
 				}
 			}
-			// 前回値の更新
+			// $BA02sCM$N99?7(B
 			prevImage = camera->sharedImage();
 		}
 	}

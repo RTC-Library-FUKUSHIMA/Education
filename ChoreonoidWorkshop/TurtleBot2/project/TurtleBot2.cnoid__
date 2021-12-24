@@ -205,7 +205,7 @@ views:
       isDedicatedItemCheckEnabled: false
   - 
     id: 4
-    name: "シーン 2"
+    name: "$B%7!<%s(B 2"
     plugin: Base
     class: SceneView
     mounted: true

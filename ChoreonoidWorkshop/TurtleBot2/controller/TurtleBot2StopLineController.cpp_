@@ -4,7 +4,7 @@
  *  Created on: 2020/01/23
  *      Author: Tsuyoshi Anazawa
  *
- *  概要: TurtleBot2モデル前進させ白線上で停止させるプログラム
+ *  $B35MW(B: TurtleBot2$B%b%G%kA0?J$5$;Gr@~>e$GDd;_$5$;$k%W%m%0%i%`(B
  */
 
 #include <cnoid/SimpleController>
@@ -16,79 +16,79 @@ using namespace cnoid;
 
 class TurtleBot2StopLineController : public SimpleController
 {
-	// ホイール数
+	// $B%[%$!<%k?t(B
 	static const int WHEEL_NUM = 2;
-	// bodyファイルに定義されたホイール名
+	// body$B%U%!%$%k$KDj5A$5$l$?%[%$!<%kL>(B
 	const string wheelNames[WHEEL_NUM] = { "wheel_left", "wheel_right" };
-	// アクチュエーションモード格納変数
+	// $B%"%/%A%e%(!<%7%g%s%b!<%I3JG<JQ?t(B
 	Link::ActuationMode actuationMode;
-	// ホイール格納配列
+	// $B%[%$!<%k3JG<G[Ns(B
 	Link* wheels[2];
-	// Body情報格納変数
+	// Body$B>pJs3JG<JQ?t(B
 	Body* body;
-	// カメラデバイス情報格納変数
+	// $B%+%a%i%G%P%$%9>pJs3JG<JQ?t(B
 	CameraPtr camera;
-	// 前回の画像格納変数
+	// $BA02s$N2hA|3JG<JQ?t(B
 	std::shared_ptr<const Image> prevImage;
-	// 画像内のグレー、白、黄色の数の格納変数
+	// $B2hA|Fb$N%0%l!<!"Gr!"2+?'$N?t$N3JG<JQ?t(B
 	int cnt[3] = { 0, 0, 0 };
-	// トレッド幅/2(車体の中心から車輪までの距離)
+	// $B%H%l%C%II}(B/2($B<VBN$NCf?4$+$i<VNX$^$G$N5wN%(B)
 	const double d = 0.115;
-	// PID制御の係数
+	// PID$B@)8f$N78?t(B
 	const double Kp = 48.0;
-	// 画像内の白線の目標値
+	// $B2hA|Fb$NGr@~$NL\I8CM(B
 	static const int TARGET = 15000;
-	// シグナル設定状態取得変数
+	// $B%7%0%J%k@_Dj>uBV<hF@JQ?t(B
 	ScopedConnection cameraConnection;
 
 public:
 	virtual bool initialize(SimpleControllerIO* io) override
 	{
 		ostream& os = io->os();
-		// Bodyの取得
+		// Body$B$N<hF@(B
 		body = io->body();
 
-		// リンクのアクチュエーションモードの初期化
+		// $B%j%s%/$N%"%/%A%e%(!<%7%g%s%b!<%I$N=i4|2=(B
 		actuationMode = Link::JOINT_TORQUE;
-		// コントローラオプションの取得
+		// $B%3%s%H%m!<%i%*%W%7%g%s$N<hF@(B
 		string option = io->optionString();
 
 		if(!option.empty()){
-			// コントローラオプションが空の場合
+			// $B%3%s%H%m!<%i%*%W%7%g%s$,6u$N>l9g(B
 			if(option == "velocity" || option == "position"){
-				// velocity または positionの場合
+				// velocity $B$^$?$O(B position$B$N>l9g(B
 				actuationMode = Link::JOINT_VELOCITY;
 			} else if(option == "torque"){
-				// torqueの場合
+				// torque$B$N>l9g(B
 				actuationMode = Link::JOINT_TORQUE;
 			} else {
-				// それ以外の場合
+				// $B$=$l0J30$N>l9g(B
 				os << fmt::format("Warning: Unknown option \"{}\".", option) << endl;
 			}
 		}
 
 		for(int i = 0; i < WHEEL_NUM; ++i){
-			// 配列にホイールリンクを格納
+			// $BG[Ns$K%[%$!<%k%j%s%/$r3JG<(B
 			wheels[i] = body->link(wheelNames[i]);
 			if(!wheels[i]){
-				// リンクが取得できなかった場合
+				// $B%j%s%/$,<hF@$G$-$J$+$C$?>l9g(B
 				os << fmt::format("{0} of {1} is not found.", wheelNames[i], body->name()) << endl;
 				return false;
 			}
 
-			// リンクのアクチュエーションモードの設定
+			// $B%j%s%/$N%"%/%A%e%(!<%7%g%s%b!<%I$N@_Dj(B
 			wheels[i]->setActuationMode(actuationMode);
-			// ホイールリンクへコントローラからの出力を有効化
+			// $B%[%$!<%k%j%s%/$X%3%s%H%m!<%i$+$i$N=PNO$rM-8z2=(B
 			io->enableOutput(wheels[i]);
 		}
 
-		// LineTraceカメラを取得
+		// LineTrace$B%+%a%i$r<hF@(B
 		camera = body->findDevice<Camera>("LineTrace");
-		// カメラのコントローラへの入力を有効化
+		// $B%+%a%i$N%3%s%H%m!<%i$X$NF~NO$rM-8z2=(B
 		io->enableInput(camera);
-		// 接続の切断
+		// $B@\B3$N@ZCG(B
 		cameraConnection.disconnect();
-		// センサの状態が変わった場合、onCameraStateChanged()を呼び出す
+		// $B%;%s%5$N>uBV$,JQ$o$C$?>l9g!"(BonCameraStateChanged()$B$r8F$S=P$9(B
 		cameraConnection = camera->sigStateChanged().connect(
 				[&](){ onCameraStateChanged(); });
 
@@ -97,25 +97,25 @@ public:
 
 	virtual bool control() override
 	{
-		// 車体の中心の速度vx(m/s), 旋回角速度va(rad/s)
+		// $B<VBN$NCf?4$NB.EY(Bvx(m/s), $B@{2s3QB.EY(Bva(rad/s)
 		double vx, va;
 		va = 0.0;
 		vx = 0.3;
 
 		if(actuationMode == Link::JOINT_VELOCITY){
-			// アクチュエーションモードがvelocityの場合
-			// 関節速度の指令値格納変数
+			// $B%"%/%A%e%(!<%7%g%s%b!<%I$,(Bvelocity$B$N>l9g(B
+			// $B4X@aB.EY$N;XNaCM3JG<JQ?t(B
 			double dq_target[2];
 
 			dq_target[0] = Kp * (vx - va * d);
 			dq_target[1] = Kp * (vx + va * d);
 
-			// 左右のホイールに指令値を与える
+			// $B:81&$N%[%$!<%k$K;XNaCM$rM?$($k(B
 			wheels[0]->dq_target() = dq_target[0];
 			wheels[1]->dq_target() = dq_target[1];
 
 			if(cnt[1] > TARGET){
-				// 白線が近くなったら停止
+				// $BGr@~$,6a$/$J$C$?$iDd;_(B
 				wheels[0]->dq_target() = 0.0;
 				wheels[1]->dq_target() = 0.0;
 			}
@@ -135,28 +135,28 @@ public:
 	{
 		size_t length = 0;
 		if(camera->sharedImage() != prevImage){
-			// カメラ画像が更新されたか確認
+			// $B%+%a%i2hA|$,99?7$5$l$?$+3NG'(B
 			const Image& image = camera->constImage();
 			if(!image.empty()){
-				// カメラ画像が取得できた場合
+				// $B%+%a%i2hA|$,<hF@$G$-$?>l9g(B
 				int width, height;
-				// 画像のサイズを取得
+				// $B2hA|$N%5%$%:$r<hF@(B
 				height = image.height();
 				width = image.width();
 				length = width * height * image.numComponents() * sizeof(unsigned char);
 			}
 
-			// 画像の1ピクセルごとのデータを取得
+			// $B2hA|$N(B1$B%T%/%;%k$4$H$N%G!<%?$r<hF@(B
 			unsigned char* src = (unsigned char*)image.pixels();
 
-			// グレー、白、黄色のカウント用配列の初期化
+			// $B%0%l!<!"Gr!"2+?'$N%+%&%s%HMQG[Ns$N=i4|2=(B
 			cnt[0] = cnt[1] = cnt[2] = 0;
-			// RGB値格納配列
+			// RGB$BCM3JG<G[Ns(B
 			int rgb[3];
 
-			// データ数分ループ
+			// $B%G!<%??tJ,%k!<%W(B
 			for(int i = 0; i < length / 3; ++i){
-				// RGBの値を格納
+				// RGB$B$NCM$r3JG<(B
 				rgb[0] = (int)src[i * 3];
 				rgb[1] = (int)src[i * 3 + 1];
 				rgb[2] = (int)src[i * 3 + 2];
@@ -167,17 +167,17 @@ public:
 						&& abs(rgb[0] - rgb[1]) <= 10
 						&& abs(rgb[1] - rgb[2]) <= 10
 						&& abs(rgb[2] - rgb[0]) <= 10){
-					// グレーの個数をカウント
+					// $B%0%l!<$N8D?t$r%+%&%s%H(B
 					cnt[0]++;
 				}else if(rgb[0] >= 180 && rgb[1] >= 180 && rgb[2] >= 180){
-					// 白の個数をカウント
+					// $BGr$N8D?t$r%+%&%s%H(B
 					cnt[1]++;
 				}else if(rgb[0] >= 170 && rgb[1] >= 170 && rgb[2] <= 100){
-					// 黄色の個数をカウント
+					// $B2+?'$N8D?t$r%+%&%s%H(B
 					cnt[2]++;
 				}
 			}
-			// 前回値の更新
+			// $BA02sCM$N99?7(B
 			prevImage = camera->sharedImage();
 		}
 	}

@@ -4,7 +4,7 @@
  *  Created on: 2019/12/16
  *      Author: Tsuyoshi Anazawa
  *
- *  概要: TurtleBot2モデルを前進させ2秒後に停止させるプログラム
+ *  $B35MW(B: TurtleBot2$B%b%G%k$rA0?J$5$;(B2$BIC8e$KDd;_$5$;$k%W%m%0%i%`(B
  */
 
 #include <cnoid/SimpleController>
@@ -15,51 +15,51 @@ using namespace cnoid;
 
 class TurtleBot2StraightController : public SimpleController
 {
-	// ホイール数
+	// $B%[%$!<%k?t(B
 	static const int WHEEL_NUM = 2;
-	// bodyファイルに定義されたホイール名
+	// body$B%U%!%$%k$KDj5A$5$l$?%[%$!<%kL>(B
 	const string wheelNames[WHEEL_NUM] = { "wheel_left", "wheel_right" };
-	// アクチュエーションモード格納変数
+	// $B%"%/%A%e%(!<%7%g%s%b!<%I3JG<JQ?t(B
 	Link::ActuationMode actuationMode;
-	// ホイール格納配列
+	// $B%[%$!<%k3JG<G[Ns(B
 	Link* wheels[2];
-	// シンプルコントローラ入出力格納変数
+	// $B%7%s%W%k%3%s%H%m!<%iF~=PNO3JG<JQ?t(B
 	SimpleControllerIO* io;
-	// Body情報格納変数
+	// Body$B>pJs3JG<JQ?t(B
 	Body* body;
-	// 開始時間格納変数
+	// $B3+;O;~4V3JG<JQ?t(B
 	double startTime;
-	// トレッド幅/2(車体の中心から車輪までの距離)
+	// $B%H%l%C%II}(B/2($B<VBN$NCf?4$+$i<VNX$^$G$N5wN%(B)
 	const double d = 0.115;
-	// 比例係数
+	// $BHfNc78?t(B
 	double Kp = 48.0;
 
 public:
 	virtual bool initialize(SimpleControllerIO* io) override
 	{
-		// ioオブジェクトの取得
+		// io$B%*%V%8%'%/%H$N<hF@(B
 		this->io = io;
-		// 出力ストリームの取得
+		// $B=PNO%9%H%j!<%`$N<hF@(B
 		ostream& os = io->os();
-		// Bodyの取得
+		// Body$B$N<hF@(B
 		body = io->body();
 
-		// アクチュエーションモードの初期化
+		// $B%"%/%A%e%(!<%7%g%s%b!<%I$N=i4|2=(B
 		actuationMode = Link::JOINT_TORQUE;
-		// コントローラオプションの取得
+		// $B%3%s%H%m!<%i%*%W%7%g%s$N<hF@(B
 		string option = io->optionString();
 
 		for(auto& option : io->options()){
 			if(!option.empty()){
-				// コントローラオプションが空の場合
+				// $B%3%s%H%m!<%i%*%W%7%g%s$,6u$N>l9g(B
 				if(option == "velocity" || option == "position"){
-					// velocity または positionの場合
+					// velocity $B$^$?$O(B position$B$N>l9g(B
 					actuationMode = Link::JOINT_VELOCITY;
 				} else if(option == "torque"){
-					// torqueの場合
+					// torque$B$N>l9g(B
 					actuationMode = Link::JOINT_TORQUE;
 				} else {
-					// それ以外の場合
+					// $B$=$l0J30$N>l9g(B
 //					os << fmt::format("Warning: Unknown option \"{}\".", option) << endl;
 					Kp = stoi(option);
 				}
@@ -67,21 +67,21 @@ public:
 		}
 
 		for(int i = 0; i < WHEEL_NUM; ++i){
-			// 配列にホイールリンクを格納
+			// $BG[Ns$K%[%$!<%k%j%s%/$r3JG<(B
 			wheels[i] = body->link(wheelNames[i]);
 			if(!wheels[i]){
-				// リンクが取得できなかった場合
+				// $B%j%s%/$,<hF@$G$-$J$+$C$?>l9g(B
 				os << fmt::format("{0} of {1} is not found.", wheelNames[i], body->name()) << endl;
 				return false;
 			}
 
-			// リンクのアクチュエーションモードの設定
+			// $B%j%s%/$N%"%/%A%e%(!<%7%g%s%b!<%I$N@_Dj(B
 			wheels[i]->setActuationMode(actuationMode);
-			// ホイールリンクへコントローラからの出力を有効化
+			// $B%[%$!<%k%j%s%/$X%3%s%H%m!<%i$+$i$N=PNO$rM-8z2=(B
 			io->enableOutput(wheels[i]);
 		}
 
-		// 開始時間の初期化
+		// $B3+;O;~4V$N=i4|2=(B
 		startTime = 0.0;
 
 		return true;
@@ -89,33 +89,33 @@ public:
 
 	virtual bool control() override
 	{
-		// 車体の中心の速度vx(m/s), 旋回角速度va(rad/s)
+		// $B<VBN$NCf?4$NB.EY(Bvx(m/s), $B@{2s3QB.EY(Bva(rad/s)
 		double vx, va;
 		va = 0.0;
 		vx = 0.3;
 
 		if(actuationMode == Link::JOINT_VELOCITY){
-			// アクチュエーションモードがvelocityの場合
-			// 関節速度の指令値格納変数
+			// $B%"%/%A%e%(!<%7%g%s%b!<%I$,(Bvelocity$B$N>l9g(B
+			// $B4X@aB.EY$N;XNaCM3JG<JQ?t(B
 			double dq_target[2];
 
 			if(startTime == 0.0){
-				// 開始時間が0.0の場合
-				// 開始時間に現在のシミュレーション時間を設定
+				// $B3+;O;~4V$,(B0.0$B$N>l9g(B
+				// $B3+;O;~4V$K8=:_$N%7%_%e%l!<%7%g%s;~4V$r@_Dj(B
 				startTime = io->currentTime();
 
 			}
 
 			if(io->currentTime() - startTime > 2.0){
-				// 現在のシミュレーション時間 - 開始時間が2.0より大きい場合
-				// 左右のホイールの指令値を0.0に設定
+				// $B8=:_$N%7%_%e%l!<%7%g%s;~4V(B - $B3+;O;~4V$,(B2.0$B$h$jBg$-$$>l9g(B
+				// $B:81&$N%[%$!<%k$N;XNaCM$r(B0.0$B$K@_Dj(B
 				wheels[0]->dq_target() = 0.0;
 				wheels[1]->dq_target() = 0.0;
 
 			}else{
 				dq_target[0] = Kp * (vx - va * d);
 				dq_target[1] = Kp * (vx + va * d);
-				// 左右のホイールに指令値を与える
+				// $B:81&$N%[%$!<%k$K;XNaCM$rM?$($k(B
 				wheels[0]->dq_target() = dq_target[0];
 				wheels[1]->dq_target() = dq_target[1];
 			}

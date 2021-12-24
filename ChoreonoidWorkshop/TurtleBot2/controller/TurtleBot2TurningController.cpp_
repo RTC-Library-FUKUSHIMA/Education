@@ -4,8 +4,8 @@
  *  Created on: 2019/12/16
  *      Author: Tsuyoshi Anazawa
  *
- *  概要: TurtleBot2モデルを"2秒間前進"→"90°右旋回"→"2秒間前進"→90°左旋回
- *        →"2秒間前進"→"停止"させるプログラム
+ *  $B35MW(B: TurtleBot2$B%b%G%k$r(B"2$BIC4VA0?J(B"$B"*(B"90$B!k1&@{2s(B"$B"*(B"2$BIC4VA0?J(B"$B"*(B90$B!k:8@{2s(B
+ *        $B"*(B"2$BIC4VA0?J(B"$B"*(B"$BDd;_(B"$B$5$;$k%W%m%0%i%`(B
  */
 
 #include <cnoid/SimpleController>
@@ -16,119 +16,119 @@ using namespace cnoid;
 
 class TurtleBot2TurningController : public SimpleController
 {
-	// ホイール数
+	// $B%[%$!<%k?t(B
 	static const int WHEEL_NUM = 2;
-	// bodyファイルに定義されたホイール名
+	// body$B%U%!%$%k$KDj5A$5$l$?%[%$!<%kL>(B
 	const string wheelNames[WHEEL_NUM] = { "wheel_left", "wheel_right" };
-	// アクチュエーションモード格納変数
+	// $B%"%/%A%e%(!<%7%g%s%b!<%I3JG<JQ?t(B
 	Link::ActuationMode actuationMode;
-	// ホイール格納配列
+	// $B%[%$!<%k3JG<G[Ns(B
 	Link* wheels[2];
-	// シンプルコントローラ入出力格納変数
+	// $B%7%s%W%k%3%s%H%m!<%iF~=PNO3JG<JQ?t(B
 	SimpleControllerIO* io;
-	// Body情報格納変数
+	// Body$B>pJs3JG<JQ?t(B
 	Body* body;
-	// トレッド/2(車体の中心から車輪までの距離)
+	// $B%H%l%C%I(B/2($B<VBN$NCf?4$+$i<VNX$^$G$N5wN%(B)
 	const double d = 0.115;
-	// 比例係数
+	// $BHfNc78?t(B
 	const double Kp = 48.0;
-	// 開始時間
+	// $B3+;O;~4V(B
 	double startTime = 0.0;
 
 public:
 	virtual bool initialize(SimpleControllerIO* io) override
 	{
-		// ioオブジェクトの取得
+		// io$B%*%V%8%'%/%H$N<hF@(B
 		this->io = io;
-		// 出力ストリームの取得
+		// $B=PNO%9%H%j!<%`$N<hF@(B
 		ostream& os = io->os();
-		// Bodyの取得
+		// Body$B$N<hF@(B
 		body = io->body();
 
-		// リンクのアクチュエーションモード設定
+		// $B%j%s%/$N%"%/%A%e%(!<%7%g%s%b!<%I@_Dj(B
 		actuationMode = Link::JOINT_TORQUE;
-		// コントローラオプションの取得
+		// $B%3%s%H%m!<%i%*%W%7%g%s$N<hF@(B
 		string option = io->optionString();
-
+		
 		if(!option.empty()){
-			// コントローラオプションが空の場合
+			// $B%3%s%H%m!<%i%*%W%7%g%s$,6u$N>l9g(B
 			if(option == "velocity" || option == "position"){
-				// velocity または positionの場合
+				// velocity $B$^$?$O(B position$B$N>l9g(B
 				actuationMode = Link::JOINT_VELOCITY;
 			} else if(option == "torque"){
-				// torqueの場合
+				// torque$B$N>l9g(B
 				actuationMode = Link::JOINT_TORQUE;
 			} else {
-				// それ以外の場合
+				// $B$=$l0J30$N>l9g(B
 				os << fmt::format("Warning: Unknown option \"{}\".", option) << endl;
 			}
 		}
 
 		for(int i = 0; i < WHEEL_NUM; ++i){
-			// 配列にホイールリンクを格納
+			// $BG[Ns$K%[%$!<%k%j%s%/$r3JG<(B
 			wheels[i] = body->link(wheelNames[i]);
 			if(!wheels[i]){
-				// リンクが取得できなかった場合
+				// $B%j%s%/$,<hF@$G$-$J$+$C$?>l9g(B
 				os << fmt::format("{0} of {1} is not found.", wheelNames[i], body->name()) << endl;
 				return false;
 			}
 
-			// リンクのアクチュエーションモードの設定
+			// $B%j%s%/$N%"%/%A%e%(!<%7%g%s%b!<%I$N@_Dj(B
 			wheels[i]->setActuationMode(actuationMode);
-			// ホイールリンクへコントローラからの出力を有効化
+			// $B%[%$!<%k%j%s%/$X%3%s%H%m!<%i$+$i$N=PNO$rM-8z2=(B
 			io->enableOutput(wheels[i]);
 		}
-
+		
 		startTime = io->currentTime();
 		return true;
 	}
 
 	virtual bool control() override
 	{
-		// 車体の中心の速度vx(m/s), 旋回角速度va(rad/s)
+		// $B<VBN$NCf?4$NB.EY(Bvx(m/s), $B@{2s3QB.EY(Bva(rad/s)
 		double vx, va;
 
 		if(io->currentTime() - startTime < 2.0){
-			// シミュレーション時間が2s未満の場合、直進
+			// $B%7%_%e%l!<%7%g%s;~4V$,(B2s$BL$K~$N>l9g!"D>?J(B
 			va = 0.0;
 			vx = 0.3;
 		} else if(io->currentTime() - startTime < 2.2){
 			va = vx = 0.0;
 		} else if(io->currentTime() - startTime < 2.7){
-			// 0.5s間右旋回
+			// 0.5s$B4V1&@{2s(B
 			va = -2.1;
 			vx = 0.0;
 		} else if(io->currentTime() - startTime < 2.9){
 			va = vx = 0.0;
 		} else if(io->currentTime() - startTime < 4.9){
-			// 2s間直進
+			// 2s$B4VD>?J(B
 			va = 0.0;
 			vx = 0.3;
 		} else if(io->currentTime() - startTime < 5.1){
 			va = vx = 0.0;
 		} else if(io->currentTime() - startTime < 5.6){
-			// 0.5s間左旋回
+			// 0.5s$B4V:8@{2s(B
 			va = 2.1;
 			vx = 0.0;
 		} else if(io->currentTime() - startTime < 5.8){
 			va = vx = 0.0;
 		} else if(io->currentTime() - startTime < 7.8){
-			// 2s間直進
+			// 2s$B4VD>?J(B
 			va = 0.0;
 			vx = 0.3;
 		} else {
-			// 停止
+			// $BDd;_(B
 			va = vx = 0.0;
 		}
 
 		if(actuationMode == Link::JOINT_VELOCITY){
-			// アクチュエーションモードがvelocityの場合
-			// 関節速度の指令値格納変数
+			// $B%"%/%A%e%(!<%7%g%s%b!<%I$,(Bvelocity$B$N>l9g(B
+			// $B4X@aB.EY$N;XNaCM3JG<JQ?t(B
 			double dq_target[2];
 
 			dq_target[0] = Kp * (vx - va * d);
 			dq_target[1] = Kp * (vx + va * d);
-			// 左右のホイールに指令値を与える
+			// $B:81&$N%[%$!<%k$K;XNaCM$rM?$($k(B
 			wheels[0]->dq_target() = dq_target[0];
 			wheels[1]->dq_target() = dq_target[1];
 		}

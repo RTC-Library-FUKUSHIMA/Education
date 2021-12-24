@@ -95,8 +95,8 @@ public:
 		if(actuationMode == Link::JOINT_VELOCITY){
 			// アクチュエーションモードが velocityの場合
 			static const double K = 20.0;
-			wheels[0]->dq_target() = K * (-pos[1] + pos[0]);
-			wheels[1]->dq_target() = K * (-pos[1] - pos[0]);
+			wheels[0]->dq_target() = K * (-pos[1] + 0.5 * pos[0]);
+			wheels[1]->dq_target() = K * (-pos[1] - 0.5 * pos[0]);
 		}
 
 		return true;

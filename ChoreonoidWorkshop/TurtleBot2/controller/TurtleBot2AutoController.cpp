@@ -127,7 +127,7 @@ public:
 		// TurtleBot2のコントローラへの入力を有効化
 		rootLink = body->link("kobuki");
 		rootLink->setActuationMode(Link::LINK_POSITION);
-		io->enableInput(rootLink);
+		io->enableInput(rootLink, LINK_POSITION);
 
 		// LineTraceカメラを取得
 		camera = body->findDevice<Camera>("LineTrace");

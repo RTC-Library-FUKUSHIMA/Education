@@ -11,57 +11,57 @@ namespace plt = matplotlibcpp;
 int main(){
 	cout << "matplot start" << endl;
 
-	// $B%U%!%$%kL>(B
+	// ファイル名
 	string fileName = "plot.tsv";
-	// $BG[Ns$NDj5A(B(t: time, x: x axis, y: y axis)
+	// 配列の定義(t: time, x: x axis, y: y axis)
 	vector<double> t, x, y;
 //	vector<double> x_itrv, y_itrv;
-	// $B%?%V6h@Z$j$N%G!<%?3JG<JQ?t(B
+	// タブ区切りのデータ格納変数
 	string tmp;
-	// $B%U%!%$%kF~=PNO$N@k8@(B
+	// ファイル入出力の宣言
 	FILE* fp;
-	// $B%P%C%U%!%5%$%:(B
+	// バッファサイズ
 	static const int BUF_SIZE = 100;
 	char str[BUF_SIZE];
-	// $B%+%l%s%H%G%#%l%/%H%j<hF@%3%^%s%I(B
+	// カレントディレクトリ取得コマンド
 #ifdef _WIN32
 	string cmd = "echo %CD%\\";
 #else
 	string cmd = "pwd | tr '\n' '/'";
 #endif // !_WIN32
 	int cnt = 0;
-	// $B%U%!%$%k%Q%9(B
+	// ファイルパス
 	string filePath = "";
 	
 #ifdef _WIN32
 	if((fp = _popen(cmd.c_str(), "r")) != NULL){
-		// $B%W%m%;%9$r%*!<%W%s$7%3%^%s%I$r<B9T(B
+		// プロセスをオープンしコマンドを実行
 		while(fgets(str, sizeof(str), fp) != NULL){
-			// $B%3%^%s%I7k2L$r(B1$B9T$:$DFI$_9~$`(B
+			// コマンド結果を1行ずつ読み込む
 			str[strlen(str) - 1] = '\0';
-			// $B%+%l%s%H%G%#%l%/%H%j$N<hF@(B
+			// カレントディレクトリの取得
 			filePath += str;
 		}
-		// $B%W%m%;%9$r%/%m!<%:(B
+		// プロセスをクローズ
 		_pclose(fp);
 	}
 	filePath += "..\\..\\";
 #else
 	if((fp = popen(cmd.c_str(), "r")) != NULL){
-		// $B%W%m%;%9$r%*!<%W%s$7%3%^%s%I$r<B9T(B
+		// プロセスをオープンしコマンドを実行
 		while(fgets(str, sizeof(str), fp) != NULL){
-			// $B%3%^%s%I7k2L$r(B1$B9T$:$DFI$_9~$`(B
-			// $B%+%l%s%H%G%#%l%/%H%j$N<hF@(B
+			// コマンド結果を1行ずつ読み込む
+			// カレントディレクトリの取得
 			filePath += str;
 		}
-		// $B%W%m%;%9$r%/%m!<%:(B
+		// プロセスをクローズ
 		pclose(fp);
 	}
 #endif // !_WIN32
 
-	// $B%G%#%l%/%H%jL>$H%U%!%$%kL>$rO"7k(B
+	// ディレクトリ名とファイル名を連結
 	filePath = filePath + fileName;
-	// $B%U%!%$%k$rFI$_9~$`(B
+	// ファイルを読み込む
 	ifstream ifs(filePath);
 	if(ifs.fail()){
 		cerr << "Failed to open file." << endl;
